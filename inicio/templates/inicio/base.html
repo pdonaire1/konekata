@@ -1,0 +1,688 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+
+
+<html class="no-js lt-ie9" lang="es" >
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <script src="{% static 'js/query-1.7.2.min.js' %}"></script>
+
+        <!-------------------------------------------------------------->
+        <script src="{% static 'js/jquery.formset.js' %}"></script>
+         <script type="text/javascript">
+           $(function() {
+               $('#myForm tbody tr').formset({
+                   prefix: '{{ formset.prefix }}'
+               });
+           })
+
+
+
+       </script>
+        <script type="text/javascript" src="{% static 'js/jquery.min.js' %}">
+</script>
+
+        <!-------------------------------------------------------------->
+
+        <!--<script src="https://code.jquery.com/jquery-2.1.1.js" ></script>-->
+        <style >
+            .hola{
+                background-color: green;
+            }
+
+        </style>
+        {% comment %}
+        <script type="text/javascript" >
+            $(document).on("ready", function(){
+                $("#hola").on("click", function(){
+                    $("#hola").toggleClass("hola");
+
+
+
+                    if ($("#hola").hasClass("hola") )
+                    {
+                        $("#hola").text("con la clase");
+                    }
+                    else
+                    {
+                        $("#hola").text("sin la clase")
+                    }
+                })
+                $('#id_suplente').click(function(){
+
+                    // $('#text_tag_input').val($('#text_tag_input').val()+$(this).val()+', ');
+
+                     $('#text_tag_input').val(
+                        $('#id_inicio').val()
+                    );
+                    var hola = $('#id_inicio').val()
+                    $("#hola").toggleClass($('#id_inicio').val());
+                    if ($("#hola").hasClass("hola") )
+                    {
+                        $("#hola").text(hola);
+                    }
+                    else
+                    {
+                        $("#hola").text(hola);
+                    }
+                });
+                $('#id_suplente').click(function(){
+
+                    $('#input2').val(
+                        $('#id_fin').val()
+                    );
+                });
+
+            })
+        </script>
+
+
+        {% endcomment %}
+
+
+
+
+
+
+
+
+        <!--<script type="text/javascript" src="{% static 'js/jquery-1.6.2.min.js' %}"></script>-->
+        <!--<script type="text/javascript" src="{% static 'js/jquery-ui-1.8.16.custom.min.js' %}"></script>-->
+        <!--<script type="text/javascript" src="{% static 'js/jquery-ui-timepicker-addon.js' %}"></script>-->
+        <!--<script type="text/javascript" src="{% static 'js/datepicker_es.js' %}"></script>-->
+
+
+
+      <style type="text/css" >
+
+           .TablaAzul {
+                   margin:0px;padding:0px;
+                   width:100%;
+                   box-shadow: 10px 10px 5px #888888;
+                   border:1px solid #000000;
+
+                   -moz-border-radius-bottomleft:0px;
+                   -webkit-border-bottom-left-radius:0px;
+                   border-bottom-left-radius:0px;
+
+                   -moz-border-radius-bottomright:0px;
+                   -webkit-border-bottom-right-radius:0px;
+                   border-bottom-right-radius:0px;
+
+                   -moz-border-radius-topright:0px;
+                   -webkit-border-top-right-radius:0px;
+                   border-top-right-radius:0px;
+
+                   -moz-border-radius-topleft:0px;
+                   -webkit-border-top-left-radius:0px;
+                   border-top-left-radius:0px;
+           }.TablaAzul table{
+               /*border-collapse: collapse;*/
+                   border-spacing: 0;
+                   width:100%;
+                   height:100%;
+                   margin:0px;padding:0px;
+           }.TablaAzul tr:last-child td:last-child {
+                   -moz-border-radius-bottomright:0px;
+                   -webkit-border-bottom-right-radius:0px;
+                   border-bottom-right-radius:0px;
+           }
+           .TablaAzul table tr:first-child td:first-child {
+                   -moz-border-radius-topleft:0px;
+                   -webkit-border-top-left-radius:0px;
+                   border-top-left-radius:0px;
+           }
+           .TablaAzul table tr:first-child td:last-child {
+                   -moz-border-radius-topright:0px;
+                   -webkit-border-top-right-radius:0px;
+                   border-top-right-radius:0px;
+           }.TablaAzul tr:last-child td:first-child{
+                   -moz-border-radius-bottomleft:0px;
+                   -webkit-border-bottom-left-radius:0px;
+                   border-bottom-left-radius:0px;
+           }.TablaAzul tr:hover td{
+
+           }
+           .TablaAzul tr:nth-child(odd){ background-color:#aad4ff; }
+           .TablaAzul tr:nth-child(even)    { background-color:#ffffff; }
+           .TablaAzul td{
+                   vertical-align:middle;
+
+
+                   /*border:1px solid #000000;*/
+                   border-width:0px 1px 1px 0px;
+                   text-align: center;
+                   padding:3px;
+                   font-size:17px;
+                   font-family:Arial;
+                   font-weight:normal;
+                   color:#000000;
+           }.TablaAzul tr:last-child td{
+                   border-width:0px 1px 0px 0px;
+           }.TablaAzul tr td:last-child{
+                   border-width:0px 0px 1px 0px;
+           }.TablaAzul tr:last-child td:last-child{
+                   border-width:0px 0px 0px 0px;
+           }
+           .TablaAzul tr:first-child td{
+                           background:-o-linear-gradient(bottom, #005fbf 5%, #003f7f 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #005fbf), color-stop(1, #003f7f) );
+                   background:-moz-linear-gradient( center top, #005fbf 5%, #003f7f 100% );
+                   filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#005fbf", endColorstr="#003f7f");	background: -o-linear-gradient(top,#005fbf,003f7f);
+
+                   background-color:#005fbf;
+                   border:0px solid #000000;
+                   text-align:center;
+                   border-width:0px 0px 1px 1px;
+                   font-size:14px;
+                   font-family:Arial;
+                   font-weight:bold;
+                   color:#ffffff;
+           }
+           .TablaAzul tr:first-child:hover td{
+                   background:-o-linear-gradient(bottom, #005fbf 5%, #003f7f 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #005fbf), color-stop(1, #003f7f) );
+                   background:-moz-linear-gradient( center top, #005fbf 5%, #003f7f 100% );
+                   filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#005fbf", endColorstr="#003f7f");	background: -o-linear-gradient(top,#005fbf,003f7f);
+
+                   background-color:#005fbf;
+           }
+           .TablaAzul tr:first-child td:first-child{
+                   border-width:0px 0px 1px 0px;
+           }
+           .TablaAzul tr:first-child td:last-child{
+                   border-width:0px 0px 1px 1px;
+           }
+
+            #id_poryecto{ width:335px; }
+
+            #id_integrante { height: 100px}
+
+
+
+           /*************************************************************/
+            div #datos {
+              position: relative;
+              top:  -71 px;
+              left: 553px;
+            }
+            div .copyrigth {
+              position: !important;
+              top:  -75px;
+              left: -452px;
+              color: #595959;
+            }
+            /*
+            #id_suplente {
+                background: #003333;
+                    width: 100%;
+            }
+            #id_suplente #datos {
+                    background: #0099FF;
+                    width: 90%;
+                    margin-right: auto;
+                    margin-left: auto;
+            }
+            */
+
+       </style>
+
+
+        <link rel="icon" type="image/ico" href="{% static 'img/favicon.ico'%}"/>
+        <link href='{% static 'css/letras.css'%}' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="{% static 'css/css_base.css' %}" type="text/css" />
+
+        <title>Konekata</title>
+
+
+
+
+
+        <script type="text/javascript">
+          // This is included here because other places don't have access to the pagename variable.
+          var READTHEDOCS_DATA = {
+            project: "django-filter",
+            version: "latest",
+            language: "en",
+            page: "usage",
+            theme: "sphinx_rtd_theme",
+            docroot: "/docs/",
+            source_suffix: ".txt",
+            //api_host: "https://readthedocs.org"
+          }
+          // Old variables
+          var doc_version = "latest";
+          var doc_slug = "django-filter";
+          var page_name = "usage";
+          var html_theme = "sphinx_rtd_theme";
+        </script>
+
+    </head>
+
+
+
+<body class="wy-body-for-nav" role="document">
+
+    <div class="wy-grid-for-nav">
+
+
+        <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+            <div class="wy-side-nav-search">
+                <img src="{% static 'img/logo_cenditel.png'%}" />
+                <a href="/konekata/" >Konekata</a>
+                <!--<div role="search">-->
+                <!---->
+                <!--    <form id ="rtd-search-form" class="wy-form" action="search.html" method="get">-->
+                <!--        <input type="text" name="q" placeholder="Search docs" />-->
+                <!--        <input type="hidden" name="check_keywords" value="yes" />-->
+                <!--        <input type="hidden" name="area" value="default" />-->
+                <!--    </form>-->
+                <!--</div>-->
+            </div>
+
+            <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+
+{% if user.is_authenticated %} <!-- inicio menu -->
+<ul class="current">
+
+    <li class="toctree-l1">
+    <a class="reference internal" href="/permiso/">Permisos</a>
+</li>
+
+{% if request.get_full_path == '/permiso/' or request.get_full_path == '/permiso/crear_form/' or request.get_full_path == '/permiso/listar-permisos/' or request.get_full_path == '/permiso/listar-suplentes/' or request.get_full_path == '/permiso/listar-dependientes/' or request.get_full_path == '/permiso/listar-ausentes/' %}
+
+    <li class="toctree-l1">
+    <!--<a class="reference internal" href="">Permisos</a>-->
+</li>
+<li class="toctree-l1 current">
+    <!--<a class="current reference internal" href="">Using django-filter</a>-->
+    <ul>
+        <li class="toctree-l2">
+            <a class="reference internal" href="/permiso/crear_form/">Solicitar</a>
+        </li>
+        <li class="toctree-l2">
+            <a class="reference internal" href="/permiso/listar-permisos/">Ver Mis Solicitudes</a>
+        </li>
+        <li class="toctree-l2">
+            <a class="reference internal" href="/permiso/listar-dependientes/">Permisos Dependientes</a>
+        </li>
+        <li class="toctree-l2">
+            <a class="reference internal" href="/permiso/listar-ausentes/">Lista de Ausentes</a>
+        </li>
+        <!--<li class="toctree-l2">-->
+        <!--    <a class="reference internal" href="">Crear</a>-->
+        <!--</li>-->
+    </ul>
+</li>
+{% endif %}
+<li class="toctree-l1">
+    <a class="reference internal" href="/actividad/">Actividades</a>
+</li>
+{% if request.get_full_path == '/actividad/' %}
+
+    <li class="toctree-l1">
+    <!--<a class="reference internal" href="">Permisos</a>-->
+</li>
+<li class="toctree-l1 current">
+    <!--<a class="current reference internal" href="">Using django-filter</a>-->
+    <ul>
+        <li class="toctree-l2">
+            <a class="reference internal" href="/permiso/crear_form/">Solicitar</a>
+        </li>
+        <li class="toctree-l2">
+            <a class="reference internal" href="/permiso/listar-permisos/">Ver Mis Solicitudes</a>
+        </li>
+        <li class="toctree-l2">
+            <a class="reference internal" href="/permiso/listar-suplentes/">Permisos por Aprobar</a>
+        </li>
+        <li class="toctree-l2">
+            <a class="reference internal" href="/permiso/listar-ausentes/">Lista de Ausentes</a>
+        </li>
+        <!--<li class="toctree-l2">-->
+        <!--    <a class="reference internal" href="">Crear</a>-->
+        <!--</li>-->
+    </ul>
+</li>
+{% endif %}
+
+<li class="toctree-l1">
+    <a class="reference internal" href="/proyectos/">Proyectos</a>
+</li>
+
+{% if request.get_full_path == '/proyectos/' or request.get_full_path == '/proyectos/listar/' or request.get_full_path == '/proyectos/listar_equipo/' %}
+
+    <li class="toctree-l1">
+    <!--<a class="reference internal" href="">Permisos</a>-->
+</li>
+<li class="toctree-l1 current">
+    <!--<a class="current reference internal" href="">Using django-filter</a>-->
+    <ul>
+        <li class="toctree-l2">
+            <a class="reference internal" href="/proyectos/listar/">Mostrar Todos Los Proyectos</a>
+        </li>
+        <li class="toctree-l2">
+            <a class="reference internal" href="/proyectos/listar_equipo/">Equipos De Trabajo de Cada Poryecto</a>
+        </li>
+        <!--<li class="toctree-l2">-->
+        <!--    <a class="reference internal" href="/permiso/listar-suplentes/">Permisos por Aprobar</a>-->
+        <!--</li>-->
+        <!--<li class="toctree-l2">-->
+        <!--    <a class="reference internal" href="/permiso/listar-ausentes/">Lista de Ausentes</a>-->
+        <!--</li>-->
+        <!--<li class="toctree-l2">-->
+        <!--    <a class="reference internal" href="">Crear</a>-->
+        <!--</li>-->
+    </ul>
+</li>
+{% endif %}
+
+<li class="toctree-l1">
+    <a class="reference internal" href="/manual/">Manual</a>
+</li>
+
+<li class="toctree-l1">
+    <a class="reference internal" href="/inicio/editar_usuario/{{ request.user.pk }}">Yo</a>
+</li>
+<li class="toctree-l1 current">
+    <!--<a class="current reference internal" href="">Using django-filter</a>-->
+    <ul>
+        <li class="toctree-l2">
+            <a class="reference internal" href="/cerrar">Cerrar Sesión</a>
+        </li>
+    </ul>
+</li>
+
+{% if request.get_full_path == '/inicio/editar_usuario/{{ request.user.pk }}/' %}
+
+    <li class="toctree-l1">
+    <!--<a class="reference internal" href="">Permisos</a>-->
+</li>
+
+<li class="toctree-l1 current">
+    <!--<a class="current reference internal" href="">Using django-filter</a>-->
+    <ul>
+        <li class="toctree-l2">
+            <a class="reference internal" href="/proyectos/listar/">Mostrar Todos Los Proyectos</a>
+        </li>
+        <li class="toctree-l2">
+            <a class="reference internal" href="/proyectos/listar_equipo/">Equipos De Trabajo de Cada Poryecto</a>
+        </li>
+        <!--<li class="toctree-l2">-->
+        <!--    <a class="reference internal" href="/permiso/listar-suplentes/">Permisos por Aprobar</a>-->
+        <!--</li>-->
+        <!--<li class="toctree-l2">-->
+        <!--    <a class="reference internal" href="/permiso/listar-ausentes/">Lista de Ausentes</a>-->
+        <!--</li>-->
+        <!--<li class="toctree-l2">-->
+        <!--    <a class="reference internal" href="">Crear</a>-->
+        <!--</li>-->
+    </ul>
+</li>
+{% endif %}
+{% endif %}
+
+<!----------------------------------------------------------------------------------------->
+<!--fin del menu-->
+
+
+    {% comment %}
+<li class="toctree-l1">
+    <a class="reference internal" href="/permiso/">Permisos</a>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Using django-filter</a>
+    <ul>
+        <li class="toctree-l2">
+            <a class="reference internal" href="">The model</a>
+        </li>
+        <li class="toctree-l2">
+            <a class="reference internal" href="">The filter</a>
+        </li>
+        <li class="toctree-l2">
+            <a class="reference internal" href="">The view</a>
+        </li>
+        <li class="toctree-l2">
+            <a class="reference internal" href="">The URL conf</a>
+        </li>
+        <li class="toctree-l2">
+            <a class="reference internal" href="">The template</a>
+        </li>
+        <li class="toctree-l2">
+            <a class="reference internal" href="">Other Meta options</a>
+        </li>
+        <li class="toctree-l2">
+            <a class="reference internal" href="">Non-Meta options</a>
+        </li>
+        <li class="toctree-l2">
+            <a class="reference internal" href="">Overriding <tt class="docutils literal">
+            <span class="pre">FilterSet</span>
+            </tt> methods</a>
+        </li>
+        <li class="toctree-l2">
+            <a class="reference internal" href="">Generic View</a>
+        </li>
+    </ul>
+</li>
+<li class="toctree-l1">
+    <a class="reference internal" href="">Filter Reference</a>
+    <ul>
+        <li class="toctree-l2">
+            <a class="reference internal" href="">Filters</a>
+        </li>
+        <li class="toctree-l2">
+            <a class="reference internal" href="">Core Arguments</a>
+        </li>
+    </ul>
+</li>
+<li class="toctree-l1">
+    <a class="reference internal" href="">Widget Reference</a>
+    <ul>
+        <li class="toctree-l2">
+            <a class="reference internal" href="">
+                <tt class="docutils literal"><span class="pre">LinkWidget</span></tt></a>
+        </li>
+    </ul>
+</li>
+<li class="toctree-l1">
+    <a class="reference internal" href="tests.html">Running the django-filter tests</a>
+    <ul>
+        <li class="toctree-l2">
+            <a class="reference internal" href="">
+                Set up a virtualenv for the test suite
+            </a>
+        </li>
+        <li class="toctree-l2">
+            <a class="">
+                Get a copy of django-filter
+            </a>
+        </li>
+        <li class="toctree-l2">
+            <a class="reference internal" href="">
+                Install the test dependencies
+            </a>
+        </li>
+    </ul>
+</li>
+{% endcomment %}
+</ul>
+
+            </div>
+            &nbsp;
+        </nav>
+
+
+
+<!-- *********************************************************************************-->
+
+
+<!--*********************************************************************************************-->
+
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+
+    <!--<nav class="wy-nav-top" role="navigation" aria-label="top navigation">-->
+    <!--    <i data-toggle="wy-nav-top" class="fa fa-bars"></i>-->
+    <!--    <a href="">django-filter</a>-->
+    <!--</nav>-->
+
+
+
+    <div class="wy-nav-content">
+        <div class="rst-content">
+            <div role="navigation" aria-label="breadcrumbs navigation">
+
+
+                {% if request.user.username %}
+                    <ul class="wy-breadcrumbs">
+
+                       <li><strong>Usuario:</strong></li>
+
+                      <li style="width: 150px" >
+                          <strong>
+                            <a href="/inicio/editar_usuario/{{ user.pk }}" style="color:red"><u>{{ user.username|capfirst}}</u></a>
+                          </strong>
+                      </li>
+                      <li>
+                          <strong>Nombre:</strong> {{ request.user.first_name }} {{ request.user.last_name }}
+                      </li>
+                        <li class="wy-breadcrumbs-aside">
+
+                            <a href="/cerrar" style="color: #8F3431" >Cerrar sesión</a>
+
+                        </li>
+                    </ul>
+                     <hr/>
+                {% endif %}
+
+            </div>
+            <div role="main">
+
+                <div class="section" id="using-django-filter">
+
+
+                    <link href="{% static 'css/rome.css' %}" rel='stylesheet' type='text/css' />
+
+
+                    <script src="{% static 'js/rome.js' %}"></script>
+                    <script src="{% static 'js/example.js'%}"></script>
+                    <script src="{% static 'js/datepicker_es.js'%}"></script>
+
+
+
+
+
+
+
+
+
+                    <link rel="stylesheet" type="text/css" href="{% static 'css/jquery.datetimepicker.css' %}"/>
+
+
+
+
+                    {% block content %}
+                    {% endblock %}
+
+                    <script src="{% static 'js/jquery.js' %}"></script>
+                    <script src="{% static 'js/jquery.datetimepicker.js' %}"></script>
+
+                <!--</pre>-->
+                </div>
+            </div>
+            <hr>
+            <!--<footer id= "">-->
+            <!--    <div class = "copyrigth" >-->
+            <!--          &copy; Copyright 2013, Alex Gaynor and others.. <br>-->
+            <!--          <a href="http://sphinx-doc.org/">Sphinx theme</a> provided by-->
+            <!--          <a href="https://readthedocs.org/"> Read the Docs </a>-->
+            <!--    </div>-->
+            <!--</footer>-->
+        </div></div>
+
+
+        </div>
+    </div>
+
+    </section>
+
+    </div>
+
+
+    <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+        <!--<span class="rst-current-version" data-toggle="rst-current-version">-->
+            <!--<span class="fa fa-book">-->
+                <div class = "copyrigth" >
+                      &copy; Copyright 2013, Alex Gaynor and others..
+                      <a href="http://sphinx-doc.org/">Sphinx theme</a> provided by
+                      <a href="https://readthedocs.org/"> Read the Docs </a>
+                </div>
+            <!--</span>-->
+            <!--    v: latest-->
+            <!--<span class="fa fa-caret-down"></span>-->
+        <!--</span>-->
+        <!--<div class="rst-other-versions">-->
+        <!--    <dl>-->
+        <!--        <dt>Versions</dt>-->
+        <!--    -->
+        <!--        <dd><a href="">latest</a></dd>-->
+        <!--    -->
+        <!--    </dl>-->
+        <!--    <dl>-->
+        <!--        <dt>Downloads</dt>-->
+        <!--    -->
+        <!--        <dd>-->
+        <!--            <a href="">-->
+        <!--                HTML-->
+        <!--            </a>-->
+        <!--        </dd>-->
+        <!--    -->
+        <!--        <dd>-->
+        <!--            <a href="">-->
+        <!--                Epub-->
+        <!--            </a>-->
+        <!--        </dd>-->
+        <!--    </dl>-->
+        <!--  <dl>-->
+        <!--    <dt>On Read the Docs</dt>-->
+        <!--      <dd>-->
+        <!--        <a href="">Project Home</a>-->
+        <!--      </dd>-->
+        <!--      <dd>-->
+        <!--        <a href="">Builds</a>-->
+        <!--      </dd>-->
+        <!--  </dl>-->
+        <!--  <hr/>-->
+        <!--  Free document hosting provided by <a href="">Read the Docs</a>.-->
+        <!--  -->
+        <!--</div>-->
+    </div>
+
+
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.6.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <!--<script type="text/javascript" src="{% static 'js/jquery-2.0.3.min.js' %}"></script>-->-->
+      <!--<script type="text/javascript" src="{% static 'js/jquery-migrate-1.2.1.min.js' %}"></script>-->
+      <!--<script type="text/javascript" src="{% static 'js/underscore.js' %}"></script>-->
+      <!--<script type="text/javascript" src="{% static 'js/doctools.js' %}"></script>-->
+
+      <!--<script type="text/javascript" src="{% static 'js/readthedocs-doc-embed.js' %}"></script>-->
+
+    <script type="text/javascript">
+        jQuery(function () {
+            SphinxRtdTheme.StickyNav.enable();
+        });
+    </script>
+
+    {% block js %}
+
+    {% endblock %}
+</body>
+</html>

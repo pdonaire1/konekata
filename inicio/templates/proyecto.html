@@ -1,0 +1,98 @@
+{% extends 'inicio/base.html' %}
+{% load staticfiles %}
+{% block content %}
+                            
+                            
+                            
+                 <center>
+    <h2>Konekata Proyectos</h2>
+    </center>
+    <hr>
+    
+    {% if user.is_authenticated %}
+                <center>
+                            
+                <table width="400" border="0" style="vertical-align: middle;text-align: center;" >
+                  {% if Presidencia %}
+                        <tr>
+                            <td>
+                                <a href="/proyectos/crear/" >
+                                <img class ="permiso" src="{% static 'img/proyectos.gif' %}"
+                                 width="75" heigth="75" />
+                                </a>
+                            </td>
+                            <td style="text-align: left">
+                                <a class="proyectos" href="/proyectos/crear/" ><br>
+                                    Crear Un Nuevo Proyecto
+                                </a>
+                            </td>
+                            
+                        </tr>
+                            {% endif %}
+                        
+                        
+                            {% if Presidencia %}
+                        <tr>
+                            
+                            
+                            <td ><br>
+                                <a href="/proyectos/nuevo_equipo/" >
+                                <img class ="permiso" src="{% static 'img/cossfunctional.png'  %}"
+                                    width="45" heigth="100" />
+                                </a>
+                            </td>
+                            <td style="text-align: left"><br>
+                               <a class="proyectos" href="/proyectos/nuevo_equipo/" >
+                                Nuevo Equipo de Trabajo
+                               </a> 
+                            </td>
+                            </a>
+                        </tr>    
+                            {% endif %}
+                            
+                            
+                        <tr>
+                            <td>
+                                <a  href="/proyectos/listar/" >
+                                <img class ="permiso" src="{% static 'img/capreta.png' %}"
+                                    width="55" heigth="70" />
+                                </a>
+                            </td>
+                            <td style="text-align: left"><br>
+                               <a class="proyectos" href="/proyectos/listar/" >Listar Proyectos</a> 
+                            </td>
+                        </tr>
+                           
+                            
+                            
+                            
+                        <tr>
+                            <td>
+                                <br>
+                                <a class="proyectos" href="/proyectos/listar_equipo/">
+                                    <img class ="permiso" src="{% static 'img/equipo.png' %}" width="80" heigth="100"/>
+                                </a>
+                                
+                            </td>
+                            <td style="text-align: left" ><br>
+                                <a class="proyectos" href="/proyectos/listar_equipo/">Ver Equipos de Trabajo</a>
+                            </td>
+                        </tr>
+                </table>
+                </center>
+                
+               {% else %}
+        <center>
+            <form action="" method="post" >{% csrf_token %}
+                <label for="username" >Usuario: </label>
+                <input type="text" name="username" placeholder="Usuario" id="username" />
+                <label for="pass" >Contraseña </label>
+                <input type="password" name="password" placeholder="Contraseña" id="pass" />
+                <input type="submit" value="Login" />
+                
+            </form>
+        </center>
+    {% endif %}
+    </div>
+    <a href="/konekata/" ><img src="{% static 'img/izquierda.png'%}" width="40" heigth="80" /></a>
+{% endblock %}

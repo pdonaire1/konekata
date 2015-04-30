@@ -1,0 +1,11 @@
+{% extends "inicio/base.html" %}
+
+{% block content %}
+    <h2>
+        permiso creado
+    </h2>
+    {% for form in form_data %}
+        {{ form}}
+    {% endfor %}
+    
+{% endblock%}

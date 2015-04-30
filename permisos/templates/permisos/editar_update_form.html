@@ -1,0 +1,122 @@
+
+
+{% extends "inicio/base.html" %}
+
+
+
+
+{% block content %}
+    <center>
+        <h2>Editar Permiso</h2>
+    </center>
+    
+    <hr>
+
+
+    {% if sup_no_disponible %}
+        <p>
+            · Suplente no disponible para ese rango de fechas, por favor has click en
+            <strong>"Actualizar suplentes disponibles"</strong>
+        </p>
+    {% endif %}
+    {% if form %}
+        <form action="" method="post" enctype="multipart/form-data" >{% csrf_token %}
+            <table>
+                {{ form.as_table }}            
+            </table>
+            
+            <!--<div id="checkear" >Actualizar suplentes disponibles</div>-->
+            <div id="datos" >
+                <input type="submit" id="submit_checkear" value="Actualizar" />
+            </div>
+            
+            
+      
+            <center>
+                
+                <input type="submit" value="Enviar" />
+                &nbsp;&nbsp;&nbsp;
+                
+                {% if permiso.id %}
+                    <a href="{% url "permiso-eliminar" pk=permiso.id %}">Eliminar</a>
+                {% endif %}
+                
+            </center>
+        </form>
+        
+    {% else %}
+        <center><h3>El Permiso ya fué enviado o no pertenece a el usuario logeado, no puede editarse.</h3></center>
+    {% endif %}
+        
+    {% comment %}
+    {% else %}
+    {% endcomment %}
+    {% comment %}
+    {% endif %}
+    {% endcomment %}
+{% endblock %}
+
+
+{% block js %}
+    <script type="text/javascript">
+        $("#id_inicio").on("click", function(){
+            $('#id_suplente').selectedindex = -1
+        });
+        $("#submit_checkear").on("click", function inicio() {
+            //var enviar = confirm("¿Desea continuar sin suplente?");//prompt("desea enviar sin suplente?");
+            //alert(enviar);
+            //var id = $(this).val();
+            //return false;
+            var f_inicio = $('#id_inicio').val();
+            var f_fin = $('#id_fin').val();
+            //f_fin = f_fin.replace("/", "-");
+            //f_fin = f_fin.replace("/", "-");
+            //f_fin = f_fin.replace("/", "-");
+            ////f_fin = f_fin.replace(":00", "");
+            //f_inicio = f_fin.replace("/", "-");
+            //f_inicio = f_fin.replace("/", "-");
+            //f_inicio = f_fin.replace("/", "-");
+            ////f_inicio = f_fin.replace(":00", "");
+            //f_fin = f_fin[0] + f_fin[1] + "-" + f_fin[3] + f_fin[4] + "-" + f_fin[6] + f_fin[7] + f_fin[8] + f_fin[9] + f_fin[10] + f_fin[11] + f_fin[12] + f_fin[13] + f_fin[14] + f_fin[15]
+            if (f_inicio[2] == '/') {
+                f_inicio = f_inicio[6] + f_inicio[7] + f_inicio[8] + f_inicio[9] + "-" + f_inicio[3] + f_inicio[4] + "-" + f_inicio[0] + f_inicio[1] + f_inicio[10] + f_inicio[11] + f_inicio[12] + f_inicio[13] + f_inicio[14] + f_inicio[15]
+            }
+            if (f_fin[2] == '/') {
+                f_fin = f_fin[6] + f_fin[7] + f_fin[8] + f_fin[9] + "-" + f_fin[3] + f_fin[4] + "-" + f_fin[0] + f_fin[1] + f_fin[10] + f_fin[11] + f_fin[12] + f_fin[13] + f_fin[14] + f_fin[15]
+            }
+            //alert(f_fin);
+            $.ajax({
+                data : 
+                    {
+                        'ajax_inicio' : f_inicio,
+                        'ajax_fin' : f_fin,
+                    },
+                url: '/permiso/busqueda_ajax/',
+                type: "get",
+                success: function (data){
+                    //alert(data);
+                    console.log(data);
+                    
+                    html = "<option value=''>----------</option>";
+                    for (var i=0; i < data.length; i++) {
+                        html += '<option value="'+data[i].pk+'">'+
+                                 data[i].fields.username + ': '+data[i].fields.first_name+'</option>';
+                    }
+                    $('#id_suplente').html(html);
+                }
+                
+            });
+            
+            console.log(f_inicio);
+            //alert('return flase');
+            return false;
+        }
+            //$('#id_suplente').attr('selected','selected')
+            
+            
+        );
+        //$('').on('change', inicio);
+        
+    </script>
+{% endblock %}
+

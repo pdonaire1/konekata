@@ -1,0 +1,78 @@
+{% extends 'inicio/base.html' %}
+
+{% block content %}
+    
+    <center><h2>Lista de Permisos Sin Leer</h2></center>
+    
+    <hr>
+    
+    <center>
+        
+        <form action="" method="get">
+            
+            <table>
+                {{ filterset.form.as_table }}
+            </table>
+            <br>
+            <input type="submit" value="Buscar" />
+        </form>
+        {% comment %}
+        {% for obj in filter %}
+            {{ obj.name }} - ${{ obj.price }}<br />
+        {% endfor %}
+        {% endcomment %}
+    
+        <br><br>
+        <table border="0" width="400" >
+            {% for permisos in object_list %}
+                {% if permiso.revisado != 0 %}
+                    <tr>
+                        <td>Solicitante:</td>
+                        <td><center>{{ permisos.solicitante }}</center></td>
+                    </tr>
+                    <tr>
+                        <td>R:</td>
+                        <td><center>{{ permisos.revisado }}</center></td>
+                    </tr>
+                    <tr>
+                        <td>Creacion:</td>
+                        <td><center>{{ permisos.fecha_creacion }}</center></td>
+                    </tr>
+                    <tr>
+                        <td>solicitud:</td>
+                        <td><center>{{ permisos.fecha_solicitud }}</center></td>
+                    </tr>
+                    <tr>
+                        <td>arpobado:</td>
+                        <td><center>{{ permisos.aprobado }}</center></td>
+                    </tr>
+                    <tr>
+                        <td>arpobado por:</td>
+                        <td><center>{{ permisos.aprobado_por }}</center></td>
+                    </tr>
+                <!--    <tr>
+                        <td>
+                            <a href="../detalle/{{ permisos.id }}">Ver detalles</a>
+                        </td>
+                    </tr>-->
+                    
+                    <!--<li>Solicitante: {{ permisos.solicitante }}</li>-->
+                    <!--<ul>-->
+                    <!--    <li>Creacion: {{ permisos.fecha_creacion }}</li>-->
+                    <!--    <li>solicitud: {{ permisos.fecha_solicitud }}</li>-->
+                    <!--    <li>arpobado? {{ permisos.aprobado }}</li>-->
+                    <!--    <li><a href="../detalle/{{ permisos.id }}">Ver detalles</a></li>-->
+                    <!--</ul>-->
+                    <tr>
+                        <td>
+                            <hr>
+                        </td>
+                        <td><hr></td>
+                    </tr>
+                {% endif %}
+            {% empty %}
+                <li>No hay Solicitudes.</li>
+            {% endfor %}
+        </table>
+    </center>
+{% endblock %}

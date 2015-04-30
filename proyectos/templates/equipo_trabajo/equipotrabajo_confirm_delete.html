@@ -1,0 +1,21 @@
+
+{% extends "inicio/base.html" %}
+
+{% block content %}
+    
+
+     <center>
+        <h2>Eliminar Proyecto</h2>
+    </center>
+    <hr>
+    <form action="" method="post">{% csrf_token %}
+        <center>
+            <p>¿Está seguro que desea eliminar el equipo de proyecto: "<strong>{{ object.nombre }}</strong>"?</p>
+            <input type="submit" value="Confirmar" />    
+        </center>
+        
+    </form>
+
+{% endblock %}
+
+    

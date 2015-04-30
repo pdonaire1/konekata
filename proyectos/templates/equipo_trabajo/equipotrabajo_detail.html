@@ -1,0 +1,66 @@
+{% extends "inicio/base.html" %}
+
+{% block content %}
+    
+    <center>
+        <h2>Detalles del Proyecto</h2>
+    </center>
+    <hr>
+    <center>
+    <table border="0" width="700" >
+
+        <tr >
+            <td width="200">
+                <strong>Nombre Del Equipo:</strong> 
+            </td>
+
+            <td>
+                    {{ object.nombre }}
+            </td>
+        
+        </tr>
+        <tr >
+            <td>
+                    <strong>Cara visible del Equipo:</strong> 
+            </td>
+            <td>
+                    {{ object.cara_visible }}
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <strong>Director del Proyecto :</strong> 
+            </td>
+            <td>
+                {{ object.director_proyecto }}
+            </td>
+        </tr>
+        <tr>
+            
+            <td>
+                <strong>Proyecto al que pertenece:</strong>
+            </td>
+            <td>
+                {{ object.poryecto }}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <strong>Integrantes Del Proyecto:</strong>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                {% for i in object.integrante.all %}
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    · <strong>Nombre:</strong> {{ i.first_name }} {{ i.last_name }}. <strong>Usuario:</strong> {{ i.username }}
+                    <br>
+                {% endfor %}
+            </td>
+            
+        </tr>
+        
+    </table>
+    </center>
+{% endblock %}

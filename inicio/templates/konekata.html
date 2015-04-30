@@ -1,0 +1,100 @@
+{% extends 'inicio/base.html' %}
+{% load staticfiles %}
+
+<style type="text/css" >
+    tr {
+        padding-bottom: 15px;
+    }
+</style>
+
+{% block content %}
+    
+    
+    
+    <center>
+    <h2>Konekata</h2>
+    </center>
+    <hr>
+    
+    {% if user.is_authenticated %}
+
+        
+        {% if Trabajador %}
+            
+            
+            <center>
+            <br><br>
+            <table width="400" border="0" style="vertical-align: middle;text-align: center;" >
+                <tr>
+                    
+                    
+                    
+                    
+                    
+                    <td style = "padding-bottom: 15px;" >
+                        <a href="/permiso/" >
+                        <img class ="permiso" src="{% static 'img/solicitud.jpg' %}"
+                         width="60" heigth="75" />
+                        </a>
+                    </td>
+                    <td style="text-align: left">
+                        <a class="konekata" href="/permiso/" ><br>
+                            Solicitudes de Permiso
+                        </a>
+                    </td>
+                    
+                    
+                </tr>
+                <tr>
+                    
+                    <td style = "padding-bottom: 15px;" >
+                        
+                        <a href="/actividad/" >
+                        <img class ="permiso" src="{% static 'img/logo_cenditel.png'%}"
+                            width="85" heigth="80" />
+                        </a>
+                    </td>
+                    <td style="text-align: left"><br>
+                       <a class="konekata" href="/actividad/" >Actividades</a> 
+                    </td>
+                    </a>
+                    
+                </tr>
+                <tr>
+                    
+                    <td >
+                        <a href="/proyectos/" >
+                        <img class ="permiso" src="{% static 'img/Iconos_portada_Proyectos_FINAL.png'%}"
+                            width="60" heigth="200" />
+                        </a>
+                    </td>
+                    <td style="text-align: left"><br>
+                       <a class="konekata" href="/proyectos/" >Proyectos</a> 
+                    </td>
+                    </a>
+                    
+                </tr>    
+                <tr>
+                    <td style = "padding-bottom: 15px;" >
+                        
+                    </td>
+                </tr>
+            </table>
+            
+            </center>
+        
+        {% endif %}
+    {% else %}
+        <center>
+            <form action="" method="post" >{% csrf_token %}
+                <label for="username" >Usuario: </label>
+                <input type="text" name="username" placeholder="Usuario" id="username" />
+                <label for="pass" >Contraseña </label>
+                <input type="password" name="password" placeholder="Contraseña" id="pass" />
+                <input type="submit" value="Login" />
+                
+            </form>
+        </center>
+    {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,340 @@
+{% extends 'inicio/base.html' %}
+{% load staticfiles %}
+
+
+
+<!-- CSS goes in the document HEAD or added to your external stylesheet -->
+<style type="text/css">
+table.hovertable {
+	font-family: verdana,arial,sans-serif;
+	font-size:11px;
+	color:#333333;
+	border-width: 1px;
+	border-color: #999999;
+	border-collapse: collapse;
+}
+table.hovertable th {
+	background-color:#c3dde0;
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #a9c6c9;
+}
+table.hovertable tr {
+	background-color:#d4e3e5;
+}
+table.hovertable td {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #a9c6c9;
+}
+</style>
+<!-- Table goes in the document BODY -->
+
+
+
+
+
+{% block content %}
+    
+    
+    
+    
+    
+    
+    
+    
+    <center>
+    <h2>Aprobación/Negación de Solicitud de Permiso</h2>
+    </center>
+    <hr>
+        <center>
+        <p>
+            <strong>Solicitante:</strong> 
+            <u>{{ object.solicitante.first_name }} {{ object.solicitante.last_name }}</u>
+        </p>
+        <table width="500" class="hovertable">
+
+            <tr onmouseover="this.style.backgroundColor='#F3F9FA';" onmouseout="this.style.backgroundColor='';" >
+                <td>
+                        <strong>Fecha de Solicitud:</strong> 
+                </td>
+                <td>
+                        {{ object.fecha_solicitud }}
+                </td>
+            </tr>
+            <tr onmouseover="this.style.backgroundColor='#F3F9FA';" onmouseout="this.style.backgroundColor='';" >
+                <td>
+                        <strong>Editado por Última Vez:</strong> 
+                </td>
+                <td>
+                        {{ object.fecha_edicion }}
+                </td>
+            </tr>
+            <tr onmouseover="this.style.backgroundColor='#F3F9FA';" onmouseout="this.style.backgroundColor='';" >
+                <td>
+                        <strong>Inicio:</strong> 
+                </td>
+                <td>
+                        {{ object.inicio }}
+                </td>
+            </tr>
+            <tr onmouseover="this.style.backgroundColor='#F3F9FA';" onmouseout="this.style.backgroundColor='';" >
+                <td>
+                        <strong>Fecha Fin:</strong> 
+                </td>
+                <td>
+                        {{ object.fin }} 
+                </td>
+            </tr>
+            <tr onmouseover="this.style.backgroundColor='#F3F9FA';" onmouseout="this.style.backgroundColor='';" >
+                <td>
+                        <strong>Observación:</strong>
+                </td>
+                <td>
+                        {{ object.observacion }}
+                </td>
+            </tr>
+            <tr onmouseover="this.style.backgroundColor='#F3F9FA';" onmouseout="this.style.backgroundColor='';" >
+                {% if object.anexo_permiso %}
+                    <tr>
+                        <td>
+                            <strong>Anexos:</strong>
+                        </td>
+                        <td>
+                        <a href="{{ object.anexo_permiso.url }}" download>Descargar</a>
+                        </td>
+                    </tr>
+                {% endif %}
+            </tr>
+            <tr onmouseover="this.style.backgroundColor='#F3F9FA';" onmouseout="this.style.backgroundColor='';">
+            <td>
+                    <strong>Suplente:</strong> 
+            </td>
+            <td>
+                {% if object.suplente %}
+                    {{ object.suplente }}: 
+                    {{ object.suplente.first_name }}
+                    {{ object.suplente.last_name }}
+                {% else %}
+                    Ninguno
+                {% endif %}
+            </td>
+        </tr>
+    
+
+
+        </table>
+        </center>
+        <hr>
+        <center>
+            
+            <!--------------------------------------------------------------------------------->
+            
+            
+            
+        
+        
+        <form action="" method="post" >{% csrf_token %}
+            
+            
+            
+            
+            {% if MarcarCorreccion %}
+                
+                <p>
+                    Agregar una Observación:
+                </p>
+                
+                <textarea id="observacion" name="observacion" ></textarea>
+                <strong id="error_observacion" ></strong>
+                <br><br>
+                
+                
+                A quien va dirigida:
+                
+                
+                    <select id="para" name="para" >
+                        <option selected="selected" value="">----</option>
+                        <option value = "Trabajador" >Trabajador</option>
+                        <option value="Presidencia" >Presidencia</option>
+                        <option value="Talento">Talento Humano</option>
+                        <option value="Direccion">Dirección Ejecutiva</option>
+                        <option value="Gestion">Dirección de Gestión</option>
+                        
+                        
+                    </select>
+                    <strong id="error_para" ></strong>
+                <br><br>
+                
+                <label>|</label>
+                <label for="correccion" style="color: #554013" >
+                    Marcar para corrección: 
+                </label>
+                <input id="correccion" name="decision" type="radio" value="Correccion" />
+                
+                
+            {% endif %}
+            
+            
+            
+            <label>|</label>
+            <label for="aprobar" style="color: green" >
+                Aprobar: 
+            </label>
+            <input id="aprobar" name="decision" type="radio" value="True"/>
+            <label>|</label>
+            <label for="negar" style="color: #8F3431" >
+                Negar: 
+            </label>
+            <input id="negar" name="decision" type="radio" value="False" /><label>|</label>
+            {% if TalentoHumano %}
+                <br>
+                <label>|</label>
+                <label for="env_presidencia" style="color: #242463" >
+                    Enviar a Presidencia 
+                </label>
+                <input id="env_presidencia" name="decision" type="radio" value="env_presidencia"/><label>|</label>
+                
+                <label for="env_direccion" style="color: #785B7A" >
+                    Enviar a Dirección Ejecutiva
+                </label>
+                <input id="env_direccion" name="decision" type="radio" value="env_direccion"/><label>|</label>
+                
+                <label for="env_gestion" style="color: #555952" >
+                    Enviar a Dirección de Gestión
+                </label>
+                <input id="env_gestion" name="decision" type="radio" value="env_gestion"/><label>|</label>
+                
+            {% endif %}
+            <br>
+            <strong id="error_desicion"></strong>
+            <br><br>
+            <input id="submit" type="submit" value="Procesar" />
+            
+        </form>
+        </center>
+        
+    <a href="/permiso/" ><img src="{% static 'img/izquierda.png'%}" width="40" heigth="80" /></a>
+{% endblock %}
+
+
+
+
+{% block js %}
+
+    <script type="text/javascript">
+        
+        
+        $('#submit').click( function(){
+            var ban_mc = false;
+            var ban_ob = false;
+            var ban_desicion = false;
+            if ($('#observacion').val() == "") {
+                $('#error_observacion').text('· Agregue una observacion')
+                ban_ob = true;
+                //return false;
+            }
+            else{
+                $('#error_observacion').text('')
+            }
+            
+            
+            
+            {% if MarcarCorreccion %}
+                if (
+                    $('#para').val() != "Trabajador"
+                    && $('#para').val() != "Presidencia"
+                    && $('#para').val() != "Talento"
+                    && $('#para').val() != "Direccion"
+                    && $('#para').val() != "Gestion"
+                ) {
+                    ban_mc = true;
+                    $('#error_para').text("· Seleccione una opción")
+                    //return false;
+                }
+                else{
+                    $('#error_para').text("")
+                }
+            {% endif %}
+            
+            if (
+                $('#correccion:checked').val() != "Correccion"
+                && $('#aprobar:checked').val() != "True"
+                && $('#negar:checked').val() != "False"
+                && $('#env_presidencia:checked').val() != "env_presidencia"
+                && $('#env_direccion:checked').val() != "env_direccion"
+                && $('#env_gestion:checked').val() != "env_gestion"
+            ) {
+                ban_desicion = true;
+                $('#error_desicion').text("· Seleccione una opción.")
+            }
+            else{
+                $('#error_desicion').text("")
+            }
+            
+            if (ban_desicion == true || ban_mc == true || ban_ob == true) {
+                return false;
+            }
+                
+            
+           
+        });
+        
+        
+        /*
+        var restar = 0;
+        var sumar = 1;
+        $("#remove").on("click", function(){
+            
+            if (restar != 0) {
+                $('label[for=id_form-'+restar+'-para]').remove();
+                $('label[for=id_form-'+restar+'-observacion]').remove();
+                $('select[id=id_form-'+restar+'-para]').remove();
+                $('input[id=id_form-'+restar+'-observacion]').remove();
+            }
+            
+            if (restar > 1 ) {
+                restar--;
+            }
+        });
+    
+
+    
+        $('#add').click(function(){
+            if (restar < 3 ) {
+                restar++;
+                cloneMore('div.table:last', 'service');
+            }
+            else{
+                return false;
+            }
+            
+        });
+        function cloneMore(selector, type){
+        var newElement = $(selector).clone(true);
+        var total = $('#id_' + type + '-TOTAL_FORMS').val();
+        
+        
+        newElement.find(':input').each(function() {
+            
+            var name = $(this).attr('name').replace('-' + (restar-1) + '-','-' + restar + '-');
+            var id = 'id_' + name;
+            //alert(name);
+            $(this).attr({'name': name, 'id': id}).val('').removeAttr('checked');
+        });
+        newElement.find('label').each(function() {
+            var newFor = $(this).attr('for').replace('-' + (restar-1) + '-','-' + restar + '-');
+            $(this).attr('for', newFor);
+        });
+        total++;
+        $('#id_' + type + '-TOTAL_FORMS').val(total);
+        $(selector).after(newElement);
+        }
+        */
+        
+        
+    </script>
+
+{% endblock %}

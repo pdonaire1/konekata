@@ -1,0 +1,122 @@
+{% extends "inicio/base.html" %}
+
+
+
+{% load i18n %}
+
+{% block head %}
+{{ wizard.form.media }}
+{% endblock %}
+
+{% block content %}
+    
+<center>
+    <h3>Nuevo Permiso</h3>
+
+<hr>
+<p>Paso {{ wizard.steps.step1 }} de {{ wizard.steps.count }}</p>
+<form action="" method="post" enctype="multipart/form-data" >{% csrf_token %}
+    <table>
+        
+        
+        <br>
+        <div  ><strong id="error"></strong></div>
+        {{ wizard.management_form }}
+        {% if wizard.form.forms %}
+            {{ wizard.form.management_form }}
+            {% for form in wizard.form.forms %}
+                {{ form }}
+                
+            {% endfor %}
+        {% else %}
+            {{ wizard.form }}
+        {% endif %}
+    </table>
+    {% if wizard.steps.prev %}
+        <br>
+    <!--<button name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}">{% trans "anterior" %}</button>-->
+    <!--<button name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% trans "siguiente" %}</button>-->
+    {% endif %}
+    <input id= "submit" type="submit" value="{% trans "Guardar" %}"/>
+</form>
+
+
+
+ 
+
+</center>
+
+
+
+
+
+{% endblock %}
+{% block js %}
+    <script type="text/javascript">
+        
+        function Dia(dia, mes, anyo) {
+            if ( (mes == 1) || (mes == 10) ) {
+                mes = 0;
+            }
+            if ( (mes == 5) ) {
+                mes = 1;
+            }
+            if (mes == 8) {
+                mes = 2;
+            }
+            if ( (mes == 2) || (mes == 11) || (mes == 3) ) {
+                mes = 3;
+            }
+            if ( (mes == 6) ) {
+                mes = 4;
+            }
+            if ( (mes == 12) || (mes == 9) ) {
+                mes = 5;
+            }
+            if ( (mes == 4) || (mes == 7) ) {
+                mes = 6;
+            }
+            d = ( dia + mes + ( anyo - 2000 ) + ( Math.trunc( ( anyo - 2000 )/4 ) ) + 6 ) % 7;
+            //alert (d);
+            
+        }
+        
+        $('#submit').click( function() {
+            var inicio = $('#incio').val();
+            if ($('#inicio').val() >= $('#fin').val()) {
+                $('#error').text("· La fecha de inicio es mayor que la de culminación");
+                return false;
+            }
+            var f_fin = $('#fin').val();
+            var f_inicio = $('#inicio').val()
+            $.ajax({
+                
+                data : 
+                    {
+                        'ajax_inicio' : f_inicio,
+                        'ajax_fin' : f_fin,
+                    },
+                url: '/permiso/validar_fecha/',
+                dataType: "json",
+                type: "get",
+                success: function (data){
+                    data = JSON.parse(response);
+                    alert(data);
+                    console.log(data);
+                    
+                    $('#error').html("fecha no laborable");
+                }
+                
+            });
+            
+            //var inicio = $('#inicio').val();
+            //f_i = inicio.split('-');
+            //dia_hora = f_i[2].split(' ');
+            //Dia(dia_hora[0], f_i[1], f_i[0]);
+
+        });
+
+    </script>
+{% endblock %}
+
+

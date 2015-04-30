@@ -1,0 +1,377 @@
+{% extends 'inicio/base.html' %}
+{% load staticfiles %}
+
+
+{% block content %}
+
+    <center><h2>Lista de Permisos</h2></center>
+    <hr>
+        <form action="" method="get">
+            <center>
+            <table>
+                {{ filterset.form.as_table }}
+            </table>
+
+            <br>
+            <input type="submit" value="Buscar" />
+            </center>
+        </form>
+
+        <br><br>
+
+      <center>
+
+    {% if presidencia or gestion or talento or direccion or suplente %}
+
+        <table class="TablaAzul"  >
+
+            <tr>
+                <td>
+                    Estatus
+                </td>
+                <td>
+                   Solicitante
+                </td>
+                <td>
+                    Fecha de Solicitud
+                </td>
+                <td>
+                    Fecha de Inicio
+                </td>
+                <td>
+                    Fecha de Culminación
+                </td>
+                <td>
+                    Suplente
+                </td>
+                {% if suplente != True %}
+                <td>
+                    Aprobado
+                </td>
+                <td>
+                    Ver Observaciones
+                </td>
+                {% endif %}
+            </tr>
+            {% for permiso in object_list %}
+                <tr onmouseover="this.style.backgroundColor='#B3BEE6';" onmouseout="this.style.backgroundColor='';">
+                    <td>
+                        {% if permiso.revisado %}
+
+                            <a href="/permiso/detalle/{{ permiso.id }}" style='color:green' >
+                                <u>Procesado</u>
+                            </a>
+                        {% else %}
+                            <a href="/permiso/{{ url_destino }}{{ permiso.id }}" style='color:#A31A1A' >
+
+                            </form>
+                                <u>Pendiente</u>
+                            </a>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {{ permiso.solicitante|capfirst }}
+                    </td>
+                    <td>
+                        {{ permiso.fecha_solicitud|date }}
+                    </td>
+                    <td>
+                        {{ permiso.inicio|date }}
+                    </td>
+                    <td>
+                        {{ permiso.fin|date }}
+                    </td>
+                    <td>
+                        {% if permiso.suplente %}
+                            {{ permiso.suplente }}
+                        {% else %}
+                            ----
+                        {% endif %}
+                    </td>
+                    {% if suplente != True %}
+                        <td>
+               <br>
+        {% if is_paginated %}
+            <div class="pagination">
+                <span class="page-links">
+                    {% if page_obj.has_previous %}
+                        <a href="/permiso/listar-permisos/?page={{ page_obj.previous_page_number }}">Previo</a>
+                    {% endif %}
+                    <span class="page-current">
+                        Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+                    </span>
+                    {% if page_obj.has_next %}
+                        <a href="/permiso/listar-permisos/?page={{ page_obj.next_page_number }}">Siguiente</a>
+                    {% endif %}
+                </span>
+            </div>
+        {% endif %}             {% if permiso.aprobado == True %}
+
+                                <strong style='color:green' >Si</strong>
+
+                            {% else %}
+                                <strong style='color:red' >No</strong>
+                            {% endif %}
+
+                        </td>
+                        <td>
+                            <a href="/permiso/observaciones/{{permiso.pk}}" style="color: #6B77C5" >
+                                Observaciones
+                            </a>
+                        </td>
+                    {% endif %}
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="4" >No hay Solicitudes de Permisos.</td>
+                </tr>
+            {% endfor %}
+
+
+
+        </table>
+        <br>
+        {% if is_paginated %}
+            <div class="pagination">
+                <span class="page-links">
+                    {% if page_obj.has_previous and presidencia %}
+                        <a href="/permiso/listar-presidencia/?page={{ page_obj.previous_page_number }}">Previo</a>
+                    {% elif page_obj.has_previous and gestion %}
+                        <a href="/permiso/listar-direccion-gestion/?page={{ page_obj.previous_page_number }}">Previo</a>
+                    {% elif page_obj.has_previous and direccion %}
+                        <a href="/permiso/listar-direccion/?page={{ page_obj.previous_page_number }}">Previo</a>
+                    {% elif page_obj.has_previous and suplente %}
+                        <a href="/permiso/listar-dependientes/?page={{ page_obj.previous_page_number }}">Previo</a>
+                    {% elif page_obj.has_previous and talento %}
+                        <a href="/permiso/listar/?page={{ page_obj.previous_page_number }}">Previo</a>
+                    {% endif %}
+                    <span class="page-current">
+                        Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+                    </span>
+                    {% if page_obj.has_next and presidencia %}
+                        <a href="/permiso/listar-presidencia/?page={{ page_obj.next_page_number }}">Siguiente</a>
+                    {% elif page_obj.has_previous and gestion %}
+                        <a href="/permiso/listar-direccion-gestion/?page={{ page_obj.next_page_number }}">Siguiente</a>
+                    {% elif page_obj.has_previous and direccion %}
+                        <a href="/permiso/listar-direccion/?page={{ page_obj.next_page_number }}">Siguiente</a>
+                    {% elif page_obj.has_previous and suplente %}
+                        <a href="/permiso/listar-dependientes/?page={{ page_obj.next_page_number }}">Siguiente</a>
+                    {% elif page_obj.has_previous and talento %}
+                        <a href="/permiso/listar/?page={{ page_obj.next_page_number }}">Siguiente</a>
+
+                    {% endif %}
+                </span>
+            </div>
+        {% endif %}
+
+    {% elif trabajador %}
+        <table class="TablaAzul"  >
+            <tr>
+                <td>
+                    Estatus
+                </td>
+                <td>
+                    Procesado
+                </td>
+                <td>
+                    Fecha de Solicitud
+                </td>
+                <td>
+                    Fecha de Inicio
+                </td>
+                <td>
+                    Fecha de Culminación
+                </td>
+                <td>
+                    Suplente
+                </td>
+                <td>
+                    Aprobado
+                </td>
+                <td>Observación</td>
+            </tr>
+            {% for permiso in object_list %}
+                <tr onmouseover="this.style.backgroundColor='#B3BEE6';" onmouseout="this.style.backgroundColor='';">
+                    <td>
+                        {% if permiso.revisado and permiso.aprobado %}
+
+                            <a href="/permiso/detalle/{{ permiso.id }}" style='color:green' >
+                                <u>Aprobado</u>
+                            </a>
+
+                        {% elif permiso.enviado and permiso.revisado == False %}
+                            <a href="/permiso/detalle/{{ permiso.id }}" style='color:#A31A1A' >
+                                <u>Enviado</u>
+                            </a>
+
+                        {% elif permiso.aprobado == False and permiso.revisado == True %}
+                            <a href="/permiso/detalle/{{ permiso.id }}" style='color:red' >
+                                <u>Negado</u>
+                            </a>
+
+                        {% elif permiso.aprobado == None and permiso.revisado == True %}
+                            <a href="/permiso/editar/{{ permiso.id }}" style='color:#A31A1A' >
+                                <u>Reenviar</u>
+                            </a>
+                        {% elif permiso.aprobado == False and permiso.enviado == False %}
+                            <a href="/permiso/editar/{{ permiso.id }}" style='color:#A31A1A' >
+                                <u>Sin enviar</u>
+                            </a>
+
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if permiso.revisado %}
+
+                            <a href="/permiso/detalle/{{ permiso.id }}" style='color:green' >
+                                <font style='color:green'>Si</font>
+                            </a>
+                        {% else %}
+                            <a href="/permiso/detalle/{{ permiso.id }}" style='color:red' >
+                                <font style='color:red'>No</font>
+                            </a>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {{ permiso.fecha_solicitud|date }}
+                    </td>
+                    <td>
+                        {{ permiso.inicio|date }}
+                    </td>
+                    <td>
+                        {{ permiso.fin|date }}
+                    </td>
+                    <td>
+                        {% if permiso.suplente %}
+                            {{ permiso.suplente }}
+                        {% else %}
+                            ----
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        {% if permiso.aprobado == True %}
+
+                            <strong style='color:green' >Si</strong>
+
+                        {% else %}
+                            <strong style='color:red' >No</strong>
+                        {% endif %}
+
+                    </td>
+                    <td>
+                        <a style="color: #6B77C5" href="/permiso/observaciones/{{ permiso.pk }}" >Observaciones</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="4" >No hay Solicitudes de Permisos.</td>
+                </tr>
+            {% endfor %}
+
+
+
+        </table>
+        <br>
+        {% if is_paginated %}
+            <div class="pagination">
+                <span class="page-links">
+                    {% if page_obj.has_previous %}
+                        <a href="/permiso/listar-permisos/?page={{ page_obj.previous_page_number }}">Previo</a>
+                    {% endif %}
+                    <span class="page-current">
+                        Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+                    </span>
+                    {% if page_obj.has_next %}
+                        <a href="/permiso/listar-permisos/?page={{ page_obj.next_page_number }}">Siguiente</a>
+                    {% endif %}
+                </span>
+            </div>
+        {% endif %}
+
+    {% elif listar_ausentes %}
+        <table class="TablaAzul"  >
+            <tr>
+                <td>
+                    Usuario
+                </td>
+                <td>
+                    Nombre(s)
+                </td>
+                <td>
+                    Apellido(s)
+                </td>
+                <td>
+                    Fecha de Inicio
+                </td>
+                <td>
+                    Fecha de Culminación
+                </td>
+                <td>
+                    Suplente
+                </td>
+            </tr>
+        {% for permiso in object_list %}
+
+                <tr onmouseover="this.style.backgroundColor='#B3BEE6';" onmouseout="this.style.backgroundColor='';">
+                    <td>
+                        {{ permiso.solicitante }}
+                    </td>
+                    <td>
+                        {{ permiso.solicitante.first_name }}
+                    </td>
+                    <td>
+                        {{ permiso.solicitante.last_name }}
+                    </td>
+                    <td>
+                        {{ permiso.inicio|date }}
+                    </td>
+                    <td>
+                        {{ permiso.fin|date }}
+                    </td>
+                    <td>
+                        {% if permiso.suplente %}
+                            {{ permiso.suplente }}
+                        {% else %}
+                            ----
+                        {% endif %}
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="4" >Actualmente no existen trabajadores de Permisos.</td>
+                </tr>
+            {% endfor %}
+        </table>
+        {% if is_paginated %}
+            <div class="pagination">
+                <span class="page-links">
+                    {% if page_obj.has_previous %}
+                        <a href="/permiso/listar-ausentes/?page={{ page_obj.previous_page_number }}">Previo</a>
+                    {% endif %}
+                    <span class="page-current">
+                        Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+                    </span>
+                    {% if page_obj.has_next %}
+                        <a href="/permiso/listar-ausentes/?page={{ page_obj.next_page_number }}">Siguiente</a>
+                    {% endif %}
+                </span>
+            </div>
+        {% endif %}
+    {% endif %}
+
+<br>
+    {% comment %}
+<p>La url de esta página: {{ request.get_full_path }}</p>
+    {% endcomment %}
+
+
+    </center>
+    <a href="/permiso/" ><img src="{% static 'img/izquierda.png'%}" width="40" heigth="80" /></a>
+{% endblock %}
+
+<!--FIN DE LOS FILTERSETS-->
+
+{% comment %}
+fin de permisos list
+{% endcomment %}

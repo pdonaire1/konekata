@@ -1,0 +1,37 @@
+<!--  CREAR Equipo  -->
+
+{% extends "inicio/base.html" %}
+
+
+
+{% block content %}
+    
+    <center>
+        <h2>Actividad</h2>
+    </center>
+    <hr>
+        
+    {% if form %}
+        <center>
+        <form action="" method="post">{% csrf_token %}
+        
+        <table border="0" >
+            {% if inscrito %}
+                <strong style="color: #AF2F2F;">¿Desea Salir de la Actividad?</strong>
+            {% else %}
+                <strong style="color: #317F41;">¿Desea Participar en la Actividad?</strong>
+            {% endif %}
+
+            <br><br>            
+            <input type="submit" value="Confirmar" name="si" />
+            
+        </table>
+        </form>
+        </center>
+    {% else %}
+        <center>
+        <h3>Usted no posee permiso para entrar a esta sección</h3>
+        </center>
+    {% endif %}
+
+{% endblock %}

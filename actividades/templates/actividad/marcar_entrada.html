@@ -1,0 +1,32 @@
+{% extends "inicio/base.html" %}
+{% load staticfiles %}
+{% block content %}
+    
+    <center>
+        <h2>Marcar entrada</h2>
+    </center>
+    <hr>
+    <center>
+        <strong>{{ actividad.nombre }}</strong>
+        <p>Hora de entrada: {{ fecha_hora }}</p>
+        {% if actividades_pendientes %}
+            <form action="" method="post" enctype="multipart/form-data" >{% csrf_token %}
+                {% if form %}
+                    <p>¿Desea añadir un archivo adjunto?:</p>
+                    
+                    {{ form.as_table }}
+                {% endif %}
+                <br><br>
+                <input type="submit" value="Confirmar" >
+                <!--<input type="text" disabled value="{{ actividad.nombre }}" >-->
+                <input type="hidden" name="id_actividad" value="{{ actividad.pk }}">
+                <br><br>
+                    <a href="/actividad/">Cancelar</a>
+                    
+            </form>
+        {% else %}
+            <p>No hay Actividades pendientes...</p>
+        {% endif %}
+    </center>
+    <a href="/actividad/listar/" ><img src="{% static 'img/izquierda.png'%}" width="40" heigth="80" /></a>
+{% endblock %}

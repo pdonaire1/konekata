@@ -1,0 +1,37 @@
+{% extends "inicio/base.html" %}
+
+{% block content %}
+    
+    <center>
+        <h2>Detalles del Proyecto</h2>
+    </center>
+    <hr>
+    <center>
+    <table border="0" width="500" >
+
+        <tr onmouseover="this.style.backgroundColor='#B3BEE6';" onmouseout="this.style.backgroundColor='';">
+            <td>
+                <strong>Nombre Del Proyecto:</strong> 
+            </td>
+        </tr>
+        <tr>
+            <td>
+                    {{ object.nombre }}
+            </td>
+        
+        </tr>
+        <tr onmouseover="this.style.backgroundColor='#B3BEE6';" onmouseout="this.style.backgroundColor='';">
+            <td>
+                    <strong>Descirpción:</strong> 
+            </td>
+        </tr>
+        <tr>
+            <td>
+                    {{ object.descripcion }}
+            </td>
+        </tr>
+        
+        
+    </table>
+    </center>
+{% endblock %}

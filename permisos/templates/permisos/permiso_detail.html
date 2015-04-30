@@ -1,0 +1,373 @@
+{% extends "inicio/base.html" %}
+{% load staticfiles %}
+{% block content %}
+    
+    <center>
+        <h2>Detalles del Permiso</h2>
+    </center>
+    <hr>
+    <center>
+    <table border="0" width="500" >
+        <tr >
+            <td colspan="2" ><center>
+                <h2>
+                    
+                        <strong>Solicitante:</strong> {{ object.solicitante|capfirst }}
+                    
+                </h2>   </center>             
+            </td>   
+        </tr>
+        <tr >
+            <td>
+                <strong>Nombre:</strong> 
+            </td>
+            <td>
+                    {{ object.solicitante.first_name }}
+                    {{ object.solicitante.last_name }}
+            </td>
+        </tr>
+        <tr >
+            <td>
+                <strong>Fecha de solicitud:</strong> 
+            </td>
+            <td>
+                    {{ object.fecha_solicitud }}
+            </td>
+        </tr>
+        <tr >
+            <td>
+                    <strong>Editado por última vez:</strong> 
+            </td>
+            <td>
+                    {{ object.fecha_edicion }}
+            </td>
+        </tr>
+        <tr >
+            
+        </tr>
+        <tr >
+            <td>
+                    <strong>Inicio:</strong> 
+            </td>
+            <td>
+                    {{ object.inicio }}
+            </td>
+        </tr>
+        <tr >
+            <td>
+                    <strong>Fecha Fin:</strong> 
+            </td>
+            <td>
+                    {{ object.fin }} 
+            </td>
+        </tr>
+        <tr >
+            <td>
+                    <strong>Observaciones:</strong>
+            </td>
+            <td>
+                    {{ object.observacion }}
+            </td>
+        </tr>
+        
+        <tr >
+            <td>
+                    <strong>Suplente:</strong> 
+            </td>
+            <td>
+                {% if object.suplente  %}
+                    {{ object.suplente }}: 
+                    {{ object.suplente.first_name }}
+                    {{ object.suplente.last_name }}
+                {% else %}
+                    Ninguno
+                {% endif %}
+            </td>
+        </tr>
+        {% if object.aprobado_suplente and object.suplente != None %}
+            <tr >
+                <td>
+                    <strong>Aprobado por el Suplente:</strong>
+                </td>
+                <td>
+                        <font color="green">Si</font>
+                </td>
+            </tr>
+        {% elif object.aprobado_suplente == None and object.suplente != None %}
+            <tr >
+                <td>
+                    <strong>Aprobado por el Suplente:</strong>
+                </td>
+                <td>
+                         <font color="#8F3431">En espera</font>
+                </td>
+            </tr>
+        {% elif object.aprobado_suplente == False and object.suplente != None %}
+            <tr >
+                <td>
+                    <strong>Aprobado por el Suplente:</strong>
+                </td>
+                <td>
+                    <font color="red">No</font>
+                </td>
+            </tr>
+        {% endif %}
+        
+        {% if object.aprobado_cv %}
+            <tr >
+                <td>
+                    <strong>Aprobado por Cara Visible:</strong>
+                </td>
+                <td>
+                        <font color="green">Si</font>
+                </td>
+            </tr>
+            
+            <tr >
+                <td>
+                        <strong>Cara Visible:</strong> 
+                </td>
+                <td>
+                        {{ object.aprobado_cv_por.username }}: 
+                        {{ object.aprobado_cv_por.first_name }}
+                        {{ object.aprobado_cv_por.last_name }}
+                </td>
+            </tr>
+        {% elif object.aprobado_cv == None %}
+            <tr >
+                <td>
+                    <strong>Aprobado por Cara Visible:</strong>
+                </td>
+                <td>
+                         <font color="#8F3431">En espera</font>
+                </td>
+            </tr>
+        {% else %}
+            <tr >
+                <td>
+                    <strong>Aprobado por Cara Visible:</strong>
+                </td>
+                <td>
+                    <font color="red">No</font>
+                </td>
+            </tr>
+            <tr >
+                <td>
+                        <strong>Cara Visible:</strong> 
+                </td>
+                <td>
+                        {{ object.aprobado_cv_por.username }}: 
+                        {{ object.aprobado_cv_por.first_name }}
+                        {{ object.aprobado_cv_por.last_name }}
+                </td>
+            </tr>
+        {% endif %}
+        
+        {% if object.aprobado_dp %}
+            <tr >
+                <td>
+                    <strong>Aprobado por Director del Proyecto:</strong>
+                </td>
+                <td>
+                        <font color="green">Si</font>
+                </td>
+            </tr>
+            <tr >
+                <td>
+                        <strong>Director del Proyecto:</strong> 
+                </td>
+                <td>
+                        {{ object.aprobado_dp_por.username }}: 
+                        {{ object.aprobado_dp_por.first_name }}
+                        {{ object.aprobado_dp_por.last_name }}
+                </td>
+            </tr>
+        {% elif object.aprobado_dp == None %}
+            <tr >
+                <td>
+                    <strong>Aprobado por Director del Proyecto:</strong>
+                </td>
+                <td>
+                         <font color="#8F3431">En espera</font>
+                </td>
+            </tr>
+        {% else %}
+            <tr >
+                <td>
+                    <strong>Aprobado por Director del Proyecto:</strong>
+                </td>
+                <td>
+                    <font color="red">No</font>
+                </td>
+            </tr>
+        {% endif %}
+        <!------------------------------------------->
+        {% if object.aprobado_dp_dos %}
+            <tr >
+                <td>
+                    <strong>Aprobado por un Segundo Director del Proyecto:</strong>
+                </td>
+                <td>
+                        <font color="green">Si</font>
+                </td>
+            </tr>
+            <tr >
+                <td>
+                        <strong>Director del Proyecto:</strong> 
+                </td>
+                <td>
+                        {{ object.aprobado_dp_dos_por.username }}: 
+                        {{ object.aprobado_dp_dos_por.first_name }}
+                        {{ object.aprobado_dp_dos_por.last_name }}
+                </td>
+            </tr>
+        {% endif %}
+        {% if object.aprobado_dp_dos == False %}
+            <tr >
+                <td>
+                    <strong>Aprobado por un Segundo Director del Proyecto:</strong>
+                </td>
+                <td>
+                    <font color="red">No</font>
+                </td>
+            </tr>
+            <tr >
+                <td>
+                        <strong>Director del Proyecto:</strong> 
+                </td>
+                <td>
+                        {{ object.aprobado_dp_dos_por.username }}: 
+                        {{ object.aprobado_dp_dos_por.first_name }}
+                        {{ object.aprobado_dp_dos_por.last_name }}
+                </td>
+            </tr>
+        {% endif %}
+        <!-------------------------------------------->
+        
+        {% if object.revisado == True %}
+            <tr >
+                <td>
+                    <strong>Revisado:</strong>
+                </td>
+                <td>
+                        <font color="green">Si</font>
+                </td>
+            </tr>
+        {% else %}
+            <tr >
+                <td>
+                    <strong>Revisado:</strong>
+                </td>
+                <td>
+                         <font color="red">No</font>
+                </td>
+            </tr>
+        {% endif %}
+        
+        
+        {% if object.aprobado %}
+        <tr >
+            <td>
+                <strong>Aprobado por:</strong>
+            </td>
+            <td>
+                {{ object.aprobado_por }}:
+                {{ object.aprobado_por.first_name }}
+                {{ object.aprobado_por.last_name }}
+            </td>
+        </tr>
+        {% endif %}
+        {% comment %}
+        <!--<tr ><td>------------------</td></tr>-->
+        <!--<tr >-->
+        <!--    <td>-->
+        <!--        <strong>Date:</strong>-->
+        <!--    </td>-->
+        <!--    <td>-->
+        <!--        {{ now|date }}-->
+        <!--    </td>-->
+        <!--</tr>-->
+        <!--<tr >-->
+        <!--    <td>-->
+        <!--        <strong>Hora:</strong>-->
+        <!--    </td>-->
+        <!--    <td>-->
+        <!--        {{ now|time }}-->
+        <!--    </td>-->
+        <!--</tr>-->
+        {% endcomment %}
+        <tr >
+            <td>
+                <strong>Enviado:</strong>
+            </td>
+            <td>
+                {% if object.enviado %}
+                    Si
+                {% else %}
+                    No
+                {% endif %}
+            </td>
+        </tr>
+        {% if object.aprobado == True %}
+            <tr >
+                <td>
+                    <strong>Aprobado:</strong>
+                </td>
+                <td>
+                    <font color="green">SI</font>
+                </td>
+            </tr>
+        {% else %}
+            <tr >
+                <td>
+                    <strong>Aprobado:</strong>
+                </td>
+                <td>
+                    <font color="red">NO</font>
+                </td>
+            </tr>
+            
+        {% endif %}
+        {% if object.enviado_para != "Suplente" %}
+            <tr >
+                <td>
+                    <strong>Enviado a:</strong>
+                </td>
+                <td>
+                    {% if object.enviado_para == "Talento" %}
+                        Talento Humano
+                    {% endif %}
+                    {% if object.enviado_para == "Direccion" %}
+                        Dirección Ejecutiva
+                    {% endif %}
+                    {% if object.enviado_para == "Gestion" %}
+                        Dirección de Gestión
+                    {% endif %}
+                    {% if object.enviado_para == "Presidencia" %}
+                        Presidencia
+                    {% endif %}
+                    
+                </td>
+            </tr>
+        {% endif %}
+        {% if object.anexo_permiso %}
+            <tr>
+                <td>
+                    <strong>Anexos:</strong>
+                </td>
+                <td>
+                <a href="{{ object.anexo_permiso.url }}" download>Descargar</a>
+                </td>
+            </tr>
+        {% endif %}
+    </table>
+    
+    {% if object.enviado != True %}
+        <a href="/permiso/eliminar/{{ object.pk }}" >Eliminar</a>
+    {% endif %}
+    {% if object.revisado == True and object.aprobado != None %}
+         <a href="/permiso/eliminar/{{ object.pk }}" >Eliminar</a>
+    {% endif %}
+    </center>
+    <a href="/permiso/" ><img src="{% static 'img/izquierda.png'%}" width="40" heigth="80" /></a>
+{% endblock %}

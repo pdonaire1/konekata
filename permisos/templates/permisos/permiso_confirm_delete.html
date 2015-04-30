@@ -1,0 +1,27 @@
+
+{% extends "inicio/base.html" %}
+
+{% block content %}
+    
+    <!--<p>con el suplente: {{ object.suplente }}</p>-->
+<!-- <form action="{% url "permiso-eliminar" pk=permiso.id %}" method="post">{% csrf_token %}-->
+     <center>
+        <h2>Eliminar Permiso</h2>
+    </center>
+    <hr>
+    <form action="" method="post">{% csrf_token %}
+        <center>
+            {% if enviado %}
+                <p>El permiso ya fué enviado, no puede ser eliminado</p>
+            {% else %}
+                <p>¿Está seguro que desea eliminar a la solicitud del "<strong>{{ object }}</strong>"?</p>
+                <p>y del usuario: <strong>{{ object.solicitante }}</strong></p>
+                <input type="submit" value="Confirmar" />
+            {% endif %}
+        </center>
+        
+    </form>
+
+{% endblock %}
+
+    

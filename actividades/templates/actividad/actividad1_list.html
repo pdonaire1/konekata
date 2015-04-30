@@ -1,0 +1,86 @@
+{% extends "inicio/base.html" %}
+{% load staticfiles %}
+{% block content %}
+
+<center><h3>Lista de Activiadades</h3></center>
+<hr>
+<table class="TablaAzul"  >
+    <tr>
+        <td>
+            Actividad
+        </td>
+        <td>
+            Fecha Inicio
+        </td>
+        <td>
+            Fecha Fin
+        </td>
+        <td>
+            Detalles
+        </td>
+        <td>
+            Participar
+        </td>
+        </tr>
+        {% for act in object_list %}
+            <tr onmouseover="this.style.backgroundColor='#B3BEE6';" onmouseout="this.style.backgroundColor='';">
+                
+                <td>
+                    {{ act.nombre }}
+                </td>
+                <td>
+                    {{ act.fecha_salida }}
+                </td>
+                <td>
+                    {{ act.fecha_fin }}
+                </td>
+                <td>
+                    <a style="color: #15A554" href="/actividad/detalle/{{ act.pk }}" >
+                       Ver
+                    </a>
+                </td>
+                <td>
+                {% if act.fecha_salida > ahora %}
+                    {% if request.user in act.inscritos.all %}
+                        <a style="color: #C10505" href="/actividad/participar/{{ act.pk }}" >
+                            Salir de la Actividad
+                        </a>
+                    {% else %}
+                        <a style="color: #15A554" href="/actividad/participar/{{ act.pk }}" >
+                           Participar
+                        </a>
+                    {% endif %}
+                {% else %}
+                    -----
+                {% endif %}
+                </td>
+             
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="4" >No hay Actividades.</td>
+            </tr>
+        {% endfor %}
+
+            
+        
+</table><br>
+{# .... **Now the pagination section** .... #}
+    {% if is_paginated %}
+        <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="/actividad/listar/?page={{ page_obj.previous_page_number }}">anterior</a>
+                {% endif %}
+                <span class="page-current">
+                    pagina {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="/actividad/listar/?page={{ page_obj.next_page_number }}">siguiente</a>
+                {% endif %}
+            </span>
+        </div>
+    {% endif %}
+<br>
+<a href="/actividad/" ><img src="{% static 'img/izquierda.png'%}" width="40" heigth="80" /></a>
+{% endblock %}

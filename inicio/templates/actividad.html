@@ -1,0 +1,89 @@
+{% extends 'inicio/base.html' %}
+{% load staticfiles %}
+
+<style type="text/css" >
+    tr {
+        padding-bottom: 15px;
+    }
+</style>
+
+{% block content %}
+    
+    
+    
+    <center>
+    <h2>Konekata Actividades</h2>
+    </center>
+    <hr>
+    
+    {% if user.is_authenticated %}
+
+        
+        {% if Trabajador %}
+            
+            
+            <center>
+            <br><br>
+            <table width="400" border="0" style="vertical-align: middle;text-align: center;" >
+                {% if Comunicacion %}
+                <tr>
+                    
+                    <td style = "padding-bottom: 15px;" >
+                        
+                        <a href="/actividad/crear" >
+                        <img class ="permiso" src="{% static 'img/Icono_Expandir.png'%}"
+                            width="60" heigth="80" />
+                        </a>
+                    </td>
+                    <td style="text-align: left"><br>
+                       <a class="actividad" href="/actividad/crear" >Crear Actividades</a> 
+                    </td>
+                    </a>
+                    
+                </tr>
+            {% endif %}
+                <tr>
+                        
+                    <td >
+                        <a href="/actividad/listar/" >
+                        <img class ="permiso" src="{% static 'img/url.png'%}"
+                            width="60" heigth="200" />
+                        </a>
+                    </td>
+                    <td style="text-align: left"><br>
+                       <a class="actividad" href="/actividad/listar/" >Listar</a> 
+                    </td>
+                    
+                    
+                </tr>    
+                <tr>
+                    <td >
+                        <a href="/actividad/marcar/" >
+                        <img class ="permiso" src="{% static 'img/entrada.png'%}"
+                            width="90" heigth="200" />
+                        </a>
+                    </td>
+                    <td style="text-align: left"><br><br>
+                       <a class="actividad" href="/actividad/marcar/" >Marcar Entrada</a> 
+                    </td>
+                </tr>
+            </table>
+            
+            </center>
+        
+        {% endif %}
+    {% else %}
+        <center>
+            <form action="" method="post" >{% csrf_token %}
+                <label for="username" >Usuario: </label>
+                <input type="text" name="username" placeholder="Usuario" id="username" />
+                <label for="pass" >Contraseña </label>
+                <input type="password" name="password" placeholder="Contraseña" id="pass" />
+                <input type="submit" value="Login" />
+                
+            </form>
+        </center>
+    {% endif %}
+    </div>
+    <a href="/konekata/" ><img src="{% static 'img/izquierda.png'%}" width="40" heigth="80" /></a>
+{% endblock %}

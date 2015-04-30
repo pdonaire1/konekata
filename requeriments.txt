@@ -1,0 +1,5 @@
+django-daterange-filter
+django-formset-js
+django==1.6
+django-filters
+django-filters-mixin

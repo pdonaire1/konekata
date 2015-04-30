@@ -1,0 +1,14 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Login Sistema</title>
+    </head>
+    <body>
+        <h1>Formulario de Login</h1>
+        <form action="." method="POST">
+            {% csrf_token %}
+            {{ form.as_p}}
+            <input type="submit" value="Login" /> {{mensaje}}
+        </form>
+    </body>
+</html>

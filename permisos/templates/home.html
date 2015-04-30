@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Home que requiere Login</title>
+    </head>
+    <body>
+        <h1>
+            Hola {% if user.is_authenticated %}{{ user.username }} <a href="{% url 'url_logout'%}">Salir</a>
+            {% else %}
+                {% include login.html %}
+            {% endif %}
+        </h1>
+    </body>
+</html>

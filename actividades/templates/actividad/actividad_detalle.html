@@ -1,0 +1,163 @@
+{% extends "inicio/base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+
+    <center>
+        <h2>Detalles del Proyecto</h2>
+    </center>
+    <hr>
+    <center>
+    <table border="0" width="500" >
+
+        <tr >
+            <td>
+                <strong>Nombre de la Actividad:</strong>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                    {{ object.nombre }}
+            </td>
+
+        </tr>
+        <tr >
+            <td>
+                    <strong>Inicio de la Actividad:</strong>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                    {{ object.fecha_salida }}
+            </td>
+        </tr>
+        <tr >
+            <td>
+                    <strong>Finalización de la Actividad:</strong>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                    {{ object.fecha_fin }}
+            </td>
+        </tr>
+        {% if object.anexo_actividad %}
+        <tr >
+            <td>
+                    <strong>Anexos:</strong>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                    
+                    <a href='{{ object.anexo_actividad.url  }}' download>Descargar</a>
+                    
+            </td>
+        </tr>
+    {% endif %}
+        <tr >
+            <td>
+                    <strong>Más Información:</strong>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                    {{ object.informacion }}
+            </td>
+        </tr>
+
+        <tr >
+            <td><strong>Integrantes:</strong></td>
+        </tr>
+        {% if comunicacion %}
+            <tr>
+                <td>
+                    <a href="{% url 'editar-actividad' object.pk %}" >Editar</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="{% url 'eliminar-actividad' object.pk %}" >Eliminar</a>
+                </td>
+            </tr>
+        {% endif %}
+        <tr>
+            <table border="0"> <!--NO TOCAR, ESTÁ BIEN-->
+                <tr>
+                    <td style="align: center;" ><center>
+                        <strong>Usuarios</strong></center>
+                    </td>
+                    <td >
+                        <center><strong>Hora de entrada</strong></center>
+                    </td>
+                    <td >
+                        <center><strong>Aportes</strong></center>
+                    </td>
+                </tr>
+                {% for integrantes in object.inscritos.all %}
+                    <tr>
+                        <td >
+                            <strong>{{ integrantes|capfirst }}</strong>
+                            : {{ integrantes.first_name }} {{ integrantes.last_name }}
+                        </td>
+                    
+                    {% for u in usuarios %}   
+                       {% if integrantes == u.usuario %}
+                            <td>
+                                {{ u.fecha_ingreso }}
+                            </td>
+                            {% if u.anexo_usuario %}
+                                <td>
+                                    
+                                    <a href="{{ u.anexo_usuario.url }}" download >Ver anexo</a>
+                                </td>
+                            {% endif %}
+                        {% endif %}        
+                    
+                    {% endfor %}
+                    </tr>
+                </tr>
+                {% empty %}
+                    <tr>
+                        <td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                No hay integrantes
+                        </td>
+                    </tr>
+                {% endfor %}
+        </table>
+            
+        </tr>
+        
+    </table>
+    </center>
+    <a href="/actividad/listar/" ><img src="{% static 'img/izquierda.png'%}" width="40" heigth="80" /></a>
+<script type="text/javascript" >
+    
+    var actividad = {{ object.pk }}
+    //$("#admin").html("sss");
+    
+    $.ajax({
+          dataType: 'json',
+          data :
+          {
+              'actividad': actividad,
+          },
+          url: "/actividad/ajax-detalle-inscritos/",
+          type: "get",
+          success: function(data) {
+            
+          },
+          error:function (xhr, ajaxOptions, thrownError) {
+            //alert(thrownError);
+            
+          }
+      });
+
+    
+    
+</script>
+{% endblock %}
+{% block js %}
+
+{% endblock %}

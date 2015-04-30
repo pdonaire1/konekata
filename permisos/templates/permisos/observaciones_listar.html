@@ -1,0 +1,92 @@
+{% extends 'inicio/base.html' %}
+{% load staticfiles %}
+                
+
+{% block content %}
+
+  
+    
+    <center><h2>Lista de Observaciones</h2></center>
+
+    <hr> 
+        
+        <br><br>
+        
+      <center>
+        
+        <table class="TablaAzul"  >
+            <tr>
+                <td>
+                    Últam Edición
+                </td>
+                <td>
+                    Código
+                </td>
+                <td>
+                    Usuario
+                </td>
+                <td>
+                    Fecha de Observacion
+                </td>
+                <td>
+                    Para
+                </td>
+                <td>
+                    Observación
+                </td>
+            </tr>
+            {% for ob in object_list %}
+                <tr onmouseover="this.style.backgroundColor='#B3BEE6';" onmouseout="this.style.backgroundColor='';">
+                    
+                    <td>
+                        {{ ob.fecha_creacion }}
+                    </td>
+                    <td>
+                        {{ ob.fk_permiso}}
+                    </td>
+                    <td>
+                        {{ ob.usuario }}
+                    </td>
+                    <td>
+                        {{ ob.fecha_observacion}}
+                    </td>
+                    <td>
+                        {{ ob.para }}
+                    </td>
+                    <td>
+                        {{ ob.observacion }}
+                    </td>
+                </tr>
+                
+            {% empty %}
+                <tr>
+                    <td colspan="4" >No hay Observaciones para este Permisos.</td>
+                </tr>
+            {% endfor %}
+            
+        </table>
+    
+<br>
+    {% comment %}
+<p>La url de esta página: {{ request.get_full_path }}</p>
+    {% endcomment %}
+    {% if is_paginated %}
+        <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="{{ request.get_full_path }}?page={{ page_obj.previous_page_number }}">Previo</a>
+                {% endif %}
+                <span class="page-current">
+                    Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="{{ request.get_full_path }}?page={{ page_obj.next_page_number }}">Siguiente</a>
+                {% endif %}
+            </span>
+        </div>
+    {% endif %}
+    </center>
+      <a href="/permiso/" ><img src="{% static 'img/izquierda.png'%}" width="40" heigth="80" /></a>
+{% endblock %}
+
+<!--FIN DE LOS FILTERSETS-->

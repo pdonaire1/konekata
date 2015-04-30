@@ -1,0 +1,22 @@
+{% extends "inicio/base.html" %}
+{% load staticfiles %}
+{% block content %}
+    
+    <center>
+        <h2>Eliminar Actividad</h2>
+    </center>
+    <hr>
+    <center>
+        
+            <form action="" method="post" enctype="multipart/form-data" >{% csrf_token %}
+                <p>¿Desea eliminar la actividad: <strong>{{ object.nombre }}</strong>?</p>
+                    
+                <br><br>
+                <input type="submit" value="Confirmar" >
+                
+                    <a href="/actividad/detalle/{{ object.pk }}">Cancelar</a>
+                    
+            </form>
+    </center>
+    <a href="/actividad/listar/" ><img src="{% static 'img/izquierda.png'%}" width="40" heigth="80" /></a>
+{% endblock %}

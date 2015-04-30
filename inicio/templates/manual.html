@@ -1,0 +1,240 @@
+{% extends 'inicio/base.html' %}
+{% load staticfiles %}
+
+    a{
+        color: red;
+    }
+{% block content %}
+
+<center>
+    <h3>
+        Manual De Usuario
+</h3>
+
+<hr>
+<div align="justify">
+
+    <ul align="Justify">
+
+{% if request.user.is_superuser %}
+        <li>
+            Usuarios
+        <ul>
+            <li>
+                <a href="#crear-usuario" class="manual" >Crear Usuario</a>
+            </li>
+            <li>
+                <a href="#listar-usuario" class="manual" >Listar Usuario</a>
+            </li>
+            <li>
+                <a href="#editar-usuario" class="manual" >Listar Usuario</a>
+            </li>
+        </ul>
+        </li>
+{% endif %}
+        <li>
+            Permisos
+        <ul>
+            <li>
+                <a href="#crear-permiso" class="manual" >Crear Permiso</a>
+            </li>
+            <li>
+                <a href="#editar-permiso" class="manual" >Modificar Permisos</a>
+            </li>
+            <li>
+                <a href="#listar-permiso" class="manual" >Listar Permisos</a>
+            </li>
+            <li>
+                <a href="#permiso-dependiente" class="manual" >Permisos Dependientes</a>
+            </li>
+            <li>
+                <a href="#permiso-talento" class="manual" >Permisos Dirigidos a Talento Humano/Dirección Ejecutiva
+                <br>/Dirección de Gestión/Presidencia.</a>
+            </li>
+        </ul>
+        </li>
+
+
+
+        <li>
+            Actividades
+        <ul>
+            <li>
+                <a href="#crear-actividad" class="manual" >Crear Actividad</a>
+            </li>
+            <li>
+                <a href="#listar-actividad" class="manual" >Listar Actividades</a>
+            </li>
+            <li>
+                <a href="#inscribirse-actividad" class="manual" >Inscribirse en Actividad</a>
+            </li>
+            <li>
+                <a href="#marcar-entrada" class="manual" >Marcar Entrada</a>
+            </li>
+        </ul>
+        </li>
+
+
+
+        <li>
+            Proyectos
+        <ul>
+            <li>
+                <a href="#listar-proyectos" class="manual" >Listar Proyectos</a>
+            </li>
+            <li>
+                <a href="#equipos-trabajo" class="manual" >Equipos de Trabajo</a>
+            </li>
+        </ul>
+        </li>
+
+
+    </ul>
+
+
+{% if request.user.is_superuser %}
+    <h4 id="crear-usuario" >Crear usuario</h4>
+        Para crear usuario dirigirse a la url del administrador, seguidamente hacer click en Add de la opción Users.
+        <br>
+        <img src="{% static 'ImgManual/1crear_usuario1.png' %}" width="500" height="500" />
+        <br><br>
+        Luego llenar el formulario con el nombre de usuario y su contrseña contraseña.
+        <br>
+        <img src="{% static 'ImgManual/2crear_usuario2.png' %}" width="700" height="700" />
+        <br>
+        Al hacer click en save (Guardar) se desplegará otro formulario para el llenado de los datos personales
+        donde se colocará los nombres, apellidos, correo electrónico, si es un usuario activo o no, o si pertenece
+        al usuario administrador.
+        <br>
+        <img src="{% static 'ImgManual/3crear_usuario3.png' %}" width="700" height="700" />
+        <br>
+        Luego se el anexarán los grupos de usuarios a los que pertenecen para acceder a los módulos del sistema,
+        el usuario trabajador deberá ser incluido para todo el personal que labora en la institución.
+        <br>
+        <img src="{% static 'ImgManual/4crear_usuario4.png' %}" width="700" height="700" />
+        <br>
+        Seguidamente hacer click en guardar (save). <br>
+        <br>
+
+    <h4 id="listar-usuario" >Listar Usuarios</h4>
+        Si se desea modificar un usuario solo es necesario hacer click en Users en la pantalla principal
+        para que despliegue la lista de todos los usuarios registrados.
+        <br>
+        <img src="{% static 'ImgManual/5listar_usuario.png' %}" width="400" height="400" />
+        <br>
+        <br>
+        <img src="{% static 'ImgManual/6listar_usuario.png' %}" width="700" height="700" />
+        <br>
+        <br>
+    <h4 id="editar-usuario" >Modificar Usuario</h4>
+        Luego de haber listado los usuarios, al hacer click en él se podría editar el usuario y se desplegara
+        el formulario de crear usuario pero con los datos llenos.
+        <br>
+        <img src="{% static 'ImgManual/7editar_usuario.png' %}" width="700" height="700" />
+        <br>
+{% endif %}
+
+<h4 id="crear-permiso" >Solicitar un nuevo permiso</h4>
+        En el menú lateral seleccionar la opción "Permisos", seguido de la opción "Solicitar"
+        que desplegará un formulario inicial, al cual se deberá introducir la fecha y hora de
+        inicio y fin de la solicitud.
+        Seguido de esto se muestra un segundo formulario que consta de los campos
+        "Observaciones" o justificación de la solicitud, "Suplente" (se selecciona uno de los suplentes disponibles)
+        y "Anexo" (si se desea adjuntar un archivo
+        relevante a la solicitud de permiso).
+        <br><br>
+<h4 id="editar-permiso" >Modificar permiso</h4>
+        En este punto la solicitud ya se encuentra creada, luego se mustra la pantalla
+        de edición del permiso que mustra los datos ya introducidos, con la posibilidad
+        de editar alguna opción, <b>además del botón "Enviar" que necesita
+        estar chequeada para porder ser enviado el permiso</b>, una vez enviado,
+        no podrá ser editada la solicitud.
+        <br><br>
+<h4 id="listar-permiso" >Listar Permisos</h4>
+        - Se pueden listar el historial de permisos solicitados al hacer click en
+        "Ver Mis Solicitudes", que mostratá un fromulario para el filtrado y todos
+        los registros obtenidos en la base de datos del usuario.
+        <img src="{% static 'ImgManual/konekatalistar.png' %}" width="700" height="700" />
+        <br>
+        Al observar la anterior imagen se aprecia los siguientes estatus:
+        a) Aprobado: La solicitud ha sido procesada y aprobada
+        b) Negado: La solicitud ha sido procesada y negada
+        c) Enviado: El permiso ha sido enviado pero no se ha procesado
+        d) Sin enviar: El permiso está almacenado, pero a si vez no ha sido enviado.
+        e) Reenviar: Significa que la solicitud ha sido procesada, pero ha sido marcada
+        para corrección.
+        <br>
+        En las observaciones se aprecian todas las notas añadidas por los usuarios
+        encargados de las correcciones
+        <br><br>
+<h4 id="permiso-dependiente" >Permisos Dependientes</h4>
+        Por otro lado los permisos dependientes no son mas que las solicitudes
+        a las que el usuario se encuentra como suplente de un permiso ya creado
+        por consiguiente es necesaria la aprobación de el <b>suplente</b>, del
+        <b>director de proyecto</b> o <b>cara visible</b> a la que se encuentre el usuario
+        para que la solicitud pueda ser envih4 id="permiso-talento" >Permisos Dirigidos a Talento Humano/Dirección Ejecutiva/Dirección de Gestión/Presidencia.</h4>
+
+        <img src="{% static 'ImgManual/konekata_procesar.png' %}" width="700" height="700" />
+        En este punto se observa un formulario para los usuario pertenecientes a
+        Talento Humano, los cuales possee el privilegio de devolver el permiso
+        para corrección, aprobar, negar, enviar a presidencia, dirección ejecutiva
+        o dirección de gestión si el objeto lo requiere.
+        <br>ada a corrección.
+        <br>
+        Al seleccionar una solicitud, se despliega un formulario que muestra todos
+        los detalles del permiso con la opción de aprobar o procesar.
+        Al ser aprobada pasaría directamente a corrección, de lo contrario
+        el usuario solicitante prodrá observar los detalles en el listado explicado
+        anteriormente.
+        <br><br>
+
+<h4 id="permiso-talento" >Permisos Dirigidos a Talento Humano/Dirección Ejecutiva/Dirección de Gestión/Presidencia.</h4>
+
+        <img src="{% static 'ImgManual/konekata_procesar.png' %}" width="700" height="700" />
+        En este punto se observa un formulario para los usuario pertenecientes a
+        Talento Humano, los cuales possee el privilegio de devolver el permiso
+        para corrección, aprobar, negar, enviar a presidencia, dirección ejecutiva
+        o dirección de gestión si el objeto lo requiere.
+        <br><br>
+
+<h4 id="crear-actividad" >Crear Actividad</h4>
+        Solo los usuarios que se encuentren en el grupo de Comunicación Social
+        son los que tienen los permisos de crear una actividad al hacer click
+        en el menú lateral "Actividades" y luego "Crear Actividad", esto abrirá
+        un formulario con la información necesaria para su creación.
+        <br><br>
+<h4 id="listar-actividad" >Listar Actividad</h4>
+        Todos los usuarios podrán listar las actividades presentes en la lista,
+        por lo que podrán inscribirse sin ningún inconveniente.
+        <b>Luego al ser culminada la actividad todos los usuarios deberán
+        "Marcar Entrada" para poder tener un registro de los usuarios que se encuentren
+        ausentes.</b>
+        <br><br>
+<h4 id="inscribirse-actividad" >Inscribirse en Actividad</h4>
+        En el listado de actividades se observa la opción "Participar" (si aún no
+        se ha inscrito el usuario) y "Salir de la Actividad" si se encuentra inscrito
+        y no desea participar en ella. Seguido de esto aparecerán dos botenes,
+        "Confirmar" para continuar el proceso y "Cancelar" para abortar.
+        <br><br>
+<h4 id="marcar-entrada" >Marcar Entrada</h4>
+        Al Hacer click en "Actividad" y luego en "Marcar Entrada", Se observa
+        un formulario que muestra la hora de entrada, y la última actividad
+        en la que ha participado el usuario, si el usuario desea realizar un aporte
+        a la institución podrá subir archivos que amplíe la información.
+        <br><br>
+<h4 id="listar-proyectos" >Listar Proyectos</h4>
+        La opción "Listar Proyectos" mostrará todos los proyectos POA de la institución
+        CENDITEL, la cual contienen múltiples Equipos de Trabajos con sus
+        cara visibles y director de proyecto
+        <br><br>
+<h4 id="equipos-trabajo" >Equipos de Trabajo</h4>
+        Aquí se muestran todos los equipos de trabajos contenidos en cada proyecto POA
+        con sus integrantes, cara visibles y director de proyectos, a los que
+        al momento de de enviar una solicitud, serán los usuarios que aprobará o
+        negará la primera fase del proceso de solicitud
+        <br><br>
+
+
+</div>
+</center>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends "inicio/base.html" %}
+
+{% block content %}
+            
+<table class="TablaAzul"  >
+    <tr>
+        <td>
+            Proyecto
+        </td>
+        <td>
+            Cara Visible
+        </td>
+        <td>
+            Director del Proyecto
+        </td>
+        <td>
+            Detalles
+        </td>
+        {% if presidencia %}
+        <td>
+            Modificar
+        </td>
+        <td>
+            Eliminar
+        </td>
+        {% endif %}
+        </tr>
+        {% for proyecto in object_list %}
+            <tr onmouseover="this.style.backgroundColor='#A0C8F0';" onmouseout="this.style.backgroundColor='';">
+                <td>
+                    {{ proyecto.nombre }}
+                </td>
+                <td>
+                    {{ proyecto.cara_visible }}
+                </td>
+                <td>
+                    {{ proyecto.director_proyecto }}
+                </td>
+                
+                <td>
+                    <a style="color: #15A554" href="/proyectos/detalle_equipo/{{ proyecto.pk }}" >
+                       Ver
+                    </a>
+                </td>
+                {% if presidencia %}
+                <td>
+                    
+                        <a style="color: #15A554" href="/proyectos/editar_equipo/{{ proyecto.pk }}" >
+                            Editar
+                        </a>
+                    
+                </td>
+                <td>
+                    <a style="color: #F25761" href="/proyectos/eliminar_equipo/{{ proyecto.pk }}" >
+                       Eliminar
+                    </a>
+                </td>
+                {% endif %}
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="4" >No hay Proyectos.</td>
+            </tr>
+        {% endfor %}
+
+            
+        
+</table>
+
+{% endblock %}

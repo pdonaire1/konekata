@@ -1,0 +1,140 @@
+{% extends 'inicio/base.html' %}
+{% load staticfiles %}
+
+
+
+{% block content %}
+
+    <center>
+    <h2>Aprobación/Negación de Solicitud de Permiso</h2>
+    </center>
+    <hr>
+        <center>
+        <p>
+            <strong>Solicitante:</strong> 
+            <u>{{ object.solicitante.first_name }} {{ object.solicitante.last_name }}</u>
+        </p>
+        <table width="500" class="hovertable">
+
+            <tr onmouseover="this.style.backgroundColor='#F3F9FA';" onmouseout="this.style.backgroundColor='';" >
+                <td>
+                        <strong>Fecha de Solicitud:</strong> 
+                </td>
+                <td>
+                        {{ object.fecha_solicitud }}
+                </td>
+            </tr>
+            <tr onmouseover="this.style.backgroundColor='#F3F9FA';" onmouseout="this.style.backgroundColor='';" >
+                <td>
+                        <strong>Editado por Última Vez:</strong> 
+                </td>
+                <td>
+                        {{ object.fecha_edicion }}
+                </td>
+            </tr>
+            <tr onmouseover="this.style.backgroundColor='#F3F9FA';" onmouseout="this.style.backgroundColor='';" >
+                <td>
+                        <strong>Inicio:</strong> 
+                </td>
+                <td>
+                        {{ object.inicio }}
+                </td>
+            </tr>
+            <tr onmouseover="this.style.backgroundColor='#F3F9FA';" onmouseout="this.style.backgroundColor='';" >
+                <td>
+                        <strong>Fecha Fin:</strong> 
+                </td>
+                <td>
+                        {{ object.fin }} 
+                </td>
+            </tr>
+            <tr onmouseover="this.style.backgroundColor='#F3F9FA';" onmouseout="this.style.backgroundColor='';" >
+                <td>
+                        <strong>Observación:</strong>
+                </td>
+                <td>
+                        {{ object.observacion }}
+                </td>
+            </tr>
+            <tr onmouseover="this.style.backgroundColor='#F3F9FA';" onmouseout="this.style.backgroundColor='';" >
+                {% if object.anexo_permiso %}
+			<tr>
+			    <td>
+				<strong>Anexos:</strong>
+			    </td>
+			    <td>
+			    <a href="{{ object.anexo_permiso.url }}" download>Descargar</a>
+			    </td>
+			</tr>
+		{% endif %}
+            </tr>
+            <tr onmouseover="this.style.backgroundColor='#F3F9FA';" onmouseout="this.style.backgroundColor='';">
+            <td>
+                    <strong>Suplente:</strong> 
+            </td>
+            <td>
+                {% if object.suplente %}
+                    {{ object.suplente }}: 
+                    {{ object.suplente.first_name }}
+                    {{ object.suplente.last_name }}
+                {% else %}
+                    Ninguno
+                {% endif %}
+            </td>
+        </tr>
+
+        </table>
+        </center>
+        <hr>
+        <center>
+
+        
+        <form action="" method="post" >{% csrf_token %}
+		
+	    <strong id="error_desicion" ></strong>
+	
+            <label>|</label>
+            <label for="aprobar" style="color: green" >
+                Aprobar: 
+            </label>
+            <input id="aprobar" name="decision" type="radio" value="True"/>
+            <label>|</label>
+            <label for="negar" style="color: #8F3431" >
+                Negar: 
+            </label>
+            <input id="negar" name="decision" type="radio" value="False" /><label>|</label>
+
+            <br><br>
+            <input id="submit" type="submit" value="Procesar" />
+            
+        </form>
+        </center>
+        
+    <a href="/permiso/" ><img src="{% static 'img/izquierda.png'%}" width="40" heigth="80" /></a>
+{% endblock %}
+
+
+{% block js %}
+
+    <script type="text/javascript">
+        
+        
+        $('#submit').click( function(){
+            //alert($('#aprobar:checked') );
+	    
+            if (!(($('#aprobar:checked').val()) || ($('#negar:checked').val()))) {
+		
+		$('#error_desicion').text("· Seleccione una opción:")
+		return false;
+            }
+            
+                
+            
+           
+        });
+        
+
+        
+    </script>
+
+{% endblock %}
